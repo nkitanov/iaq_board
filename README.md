@@ -70,10 +70,10 @@ The device have three [Neopixel 5050](https://www.digikey.com/catalog/en/partgro
 PM2.5 value (um/m3)<br>LED 1 | CO2 value (ppm)<br>LED 3 | Color |  R  |  G  |  B
 :-----------------: | :-------------: | :---: | :-: | :-: | :-: 
 < 10 | < 700 | ![](https://img.shields.io/static/v1?label=&message=GREEN&color=green) | off | on | off |
-11 - 20 | 700 - 1000 | ![](https://img.shields.io/static/v1?label=&message=CYAN&color=cyan) | off | on | on
-20 - 30 | 1000 - 1500 | ![](https://img.shields.io/static/v1?label=&message=YELLOW&color=yellow) | on | on | off
-30 - 40 | 1500 - 2100 | ![](https://img.shields.io/static/v1?label=&message=MAGENTA&color=magenta) | on | off | on
-> 50 | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | on
+11 - 20 | 700 - 1000 | ![](https://img.shields.io/static/v1?label=&message=CYAN&color=cyan) | off | on | on |
+20 - 30 | 1000 - 1500 | ![](https://img.shields.io/static/v1?label=&message=YELLOW&color=yellow) | on | on | off |
+30 - 40 | 1500 - 2100 | ![](https://img.shields.io/static/v1?label=&message=MAGENTA&color=magenta) | on | off | on |
+> 50 | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | on |
 
 ## 9. Displays
 The main display is the popular SSD1306 128x64 OLED display. On the top of the MCU board you can install extra [OLED 63x48](https://docs.wemos.cc/en/latest/d1_mini_shiled/oled_0_66.html) shield from Lolin which shows temperature, humidity and air pressure.
@@ -116,8 +116,6 @@ Firmware is created with [ESPHome](https://esphome.io/index.html). The binary fi
 # Schematics
 You can see all KiCad project in kicad folder with schematic, PCB design file, 3D models, etc.
 ![](images/schematic.png)
-
-
 
 # FAQ
 - *Can I power it from battery?*
