@@ -1,4 +1,4 @@
-![](images/stand.gif)
+![](images/iaq_device_3d.png)
 
 # IAQ (Indoor Air Quality) Board 
 IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap and simple, but capable**. 
@@ -20,7 +20,7 @@ The device is based on very widely available and cheap essential components ([MC
 - [X] ***auto night dimming of the displays and LEDs (can be disabled)***
 - [X] ***external button for selection of the data to show on the display***
 - [X] ***[firmware](https://en.wikipedia.org/wiki/Firmware) based on [ESPhome](https://esphome.io/), the device can be [directly added](https://esphome.io/components/api.html) in [Home Assistant](https://www.home-assistant.io/)***
-- [X] ***WiFi access to the device with web access to read the sensor data***
+- [X] ***WiFi access to the device with http server and [REST API](https://esphome.io/web-api/index.html) and [esphome native API](https://esphome.io/components/api.html)  to read the sensor data***
 
 Here is a video with all you need to know: video..............
 
@@ -39,10 +39,12 @@ I made this sensor for me and then decided to share it, because a lot of people 
 However I know that someone might be interested to get the device, but lack the skills to build it. I do not stock the parts, however I have some PCBs and if there is interest I can sell some items, partially or completely assembled devices. [Drop me an email](mailto:nkitanov@gmail.com) if you are interested in buying the PCB, partially assembled, or a complete device. Then I can gather some details if there are more people looking for this option...
 
 # Components Details
+![](images/iaq_device.jpg)
 ## 1. PCB
 ![](images/pcb.jpg)
 
-The PCB (printed circuit board) is very simple. It just connects the few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. It's designed on [KiCad](https://kicad-pcb.org/) and in the kicad folder you can find full KiCad project, PCB gerber files, etc.
+The PCB (printed circuit board) is very simple. It just connects the few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Of course it could be integrated even more by soldering all individual components on the PSB but then the project becomes quite more complicated and it's much more difficult to be assembled with a simpler soldering iron.
+It's designed on [KiCad](https://kicad-pcb.org/) and in the kicad folder you can find full KiCad project, PCB gerber files, etc.
 ## 2. Holder case
 ![](images/stand.gif)
 
@@ -56,13 +58,21 @@ Initially I developed the board with using the most popular WiFi enabled MCU [ES
 
 These small size MCU board are pretty nice, they are tiny, have USB connector, onboard power supply and USB converter for programming or serial output. And you are powering the whole device with a mini USB cable.
 ## 4. Dust Sensor
+![](images/pms7003.jpg)
+
 Dust sensor is the Chinese [Plantower PMS7003](http://www.plantower.com/en/content/?110.html) - 1, 2.5 and 10 micron particle laser sensor. It's very small and is perfect for indoor environment. 
 ## 5. CO2 sensor
+![](images/mh-z19b.png)
+
 Carbon dioxide sensor is the Chinese [Winsen MH-Z19B](https://www.winsen-sensor.com/sensors/co2-sensor/mh-z19b.html) - the most expensive part of the device. It's quite popular for hobby air quality meters and can [reliably measure](https://www.circuits.dk/testing-mh-z19-ndir-co2-sensor-module/) up to 5000 ppm CO2 concentration.
 ## 6. Temperature/Humidity/Pressure sensor
+![](images/bme280.jpg)
+
 This sensor is the very popular [Bosch BME280](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/), mounted on 3.3V only breakout board from China. There are also smaller [breakout boards](http://www.cncroutersource.com/breakout-boards.html) from China working both on 5V and 3.3V, but these have voltage regulator which can theoretically warm the board and change the temperature reading. That's why I use the boards for 3.3V only.
 ## 7. Ambient Light Sensor
-The light sensor is [TLS 2561](https://ams.com/tsl2561) and it's the only sensor you need to solder directly on the board without breakout board. I added this sensor not because I need to measure the ambient light but because I am a brightness freak, and I need the LEDs brightness to depend on the ambient light. Also wanted during the night when the lights are off the device to turn off the LEDs and displays. You can also change the behavior of this brightness control and I spend some extra time developing the firmware config only for the brightness features. :)
+![](images/tsl2561.jpg)
+
+The light sensor is [TSL 2561](https://ams.com/tsl2561) and it's the only sensor you need to solder directly on the board without breakout board. I added this sensor not because I need to measure the ambient light but because I am a brightness freak, and I need the LEDs brightness to depend on the ambient light. Also wanted during the night when the lights are off the device to turn off the LEDs and displays. You can also change the behavior of this brightness control and I spend some extra time developing the firmware config only for the brightness features. :)
 ## 8. LEDs
 The device have three [Neopixel 5050](https://www.digikey.com/catalog/en/partgroup/neopixel-rgb-5050-led-with-integrated-driver-chip-100-pack/70939) RGB multicolor LEDs. These LEDs are mostly found in the colorful LED strips and are controlled over a single wire. In my esphome based firmware left LED color is indicating the level of PM2.5 and change the colors depending on the value. The same is for the right (LED3) but it indicates CO2 value. Middle one is not active when the device is in standalone mode. But if you add it in Home Assistant you can control it and change the color. I have a device in the living room which turns red when air purifier in the bedroom is running, controlled by [Home Assistant](https://www.home-assistant.io/).
 
@@ -78,8 +88,12 @@ PM2.5 value (um/m3)<br>LED 1 | CO2 value (ppm)<br>LED 3 | Color |  R  |  G  |  B
 ## 9. Displays
 The main display is the popular SSD1306 128x64 OLED display. On the top of the MCU board you can install extra [OLED 63x48](https://docs.wemos.cc/en/latest/d1_mini_shiled/oled_0_66.html) shield from Lolin which shows temperature, humidity and air pressure.
 ## 10. Volatile Organic Compound sensor
+![](images/sgp30.jpg)
+
 This is the [Sensirion SGP30](https://www.sensirion.com/en/environmental-sensors/gas-sensors/sgp30/) senor mounted on a breakout board from China. I do not use it on all my devices, but I added it because I can. :) Also with it the device measures almost completely the internal air quality. SGP30 is also showing equivalent CO2 based on VOC but it's not precise compared with MH-Z19B NDIR sensor. Also it needs periodic calibration hardcoded in the firmware which makes it more tricky to use.
 ## 11. Other electrical components
+![](images/buttons.png)
+
 The device have 2 buttons - one for selection screens and settings, and another micro button for calibration of the CO2 sensor to 400ppm if you keep it pressed for more than 7 sec. 
 
 There are also four [surface mounted](https://en.wikipedia.org/wiki/Surface-mount_technology) [bypass capacitors](https://en.wikipedia.org/wiki/Decoupling_capacitor) for the ambient light sensor and the LEDs.
@@ -114,20 +128,25 @@ D1-D3 | [Neopixel 5050 LED](https://www.aliexpress.com/item/4000750610574.html?s
 Firmware is created with [ESPHome](https://esphome.io/index.html). The binary file, configuration and instructions are located in firmware folder.
 
 # Schematics
-You can see all KiCad project in kicad folder with schematic, PCB design file, 3D models, etc.
+Find all KiCad project in kicad folder with schematic, PCB design file, 3D models, etc. In schematic U1 (microcontroller board) is based on ESP8266 version (original Wemos D1 mini).
 ![](images/schematic.png)
 
-# FAQ
-- *Can I power it from battery?*
+# Soldering tips
+In the video I explain about soldering. The PCB have symbols on for the components and pins. Just pay attention to correct orientation of boards and pins.
 
-The device is powered from regular micro USB cable with 5V and consumes between 100-250 mA. You can power it with USB battery pack but not for too long (for example 4000 mAh battery will be depleted in about 20h). If you need to operate it from a battery, firmware have to enter the MCU in a deep sleep mode periodically. You have to build your own firmware. I do not run any of my devices in deep sleep as I do not see a reason for that.
+![](images/kicad_3d.png)
+
+# FAQ
+- *Can I power it from a battery?*
+
+The device is powered from regular micro USB cable with 5V and consumes between 100-250 mA. You can power it with USB battery pack but not for too long (for example 4000 mAh battery will be depleted in about 20h). If you need to operate it from a battery, firmware have to enter the MCU in a [deep sleep](https://esphome.io/components/deep_sleep.html) mode periodically. You have to build your own firmware. I do not run any of my devices in deep sleep as I do not see a reason for that.
 - *Can it be installed outdoors?*
 
 The device is not waterproof. It can run outdoors if you install it in enclosure which is protecting it from water. It can handle high humidity maybe (never tested it).
 
 - *How to calibrate MH-Z19B CO2 sensor?*
 
-Periodically (let's say one time per month) and after installation of a new sensor calibration needs to be performed. The calibration is done by exposing it to the outside air which have about 400ppm CO2 concentration for about 20-30 min and then press and hold the micro button SW2 for more then 7 sec. In that way the value of the sensor is "zeroed" at 400 ppm. Alternatively if the device is added in Home Assistant, there is a template switch called `switch.co2_sensor_zero_calibration` and you just turn it on. It's doing the same as pusing the button but you are doing it remotely over the WiFi. [Here](https://www.circuits.dk/testing-mh-z19-ndir-co2-sensor-module/) are some more details about this sensor and calibration.
+Periodically (let's say one time per month) and after installation of a new sensor calibration needs to be performed. The calibration is done by exposing it to the outside air which have about 400ppm CO2 concentration for about 20-30 min and then press and hold the micro button SW2 for more then 7 sec. In that way the value of the sensor is "zeroed" at 400 ppm. Alternatively if the device is added in Home Assistant, there is a template switch called `switch.co2_sensor_zero_calibration` and you just turn it on. It's doing the same as pusing the button but you are doing it remotely over the WiFi. [Here](https://www.circuits.dk/testing-mh-z19-ndir-co2-sensor-module/) are more details about this sensor and calibration.
 
 - *Ho how calibrate SGP30 VOC sensor?*
 
@@ -135,11 +154,11 @@ It's explained in [ESPHome manual](https://esphome.io/components/sensor/sgp30.ht
 
 - *How to connect to WiFi?*
 
-After 1 minute of unsuccessful WiFi connection attempts, the microcontroller will start a WiFi hotspot with name `iaq_device` and password `12345678`. When you connect to the fallback network, the web interface should open automatically (see also login to network notifications). If that does not work, you can also navigate to http://192.168.4.1/ manually in your browser. Then type name and password of your wifi hotspot, click save and MCU will restart and try to connect to the provided network. Additionally from this captive portal you can upload a new firmware. 
+After 1 minute of unsuccessful WiFi connection attempts, the microcontroller will start a WiFi hotspot with name `iaq_device` and password `12345678`. When you connect to the fallback network, the web interface should open automatically (see also login to network notifications). If that does not work, you can also navigate to http://192.168.4.1/ manually in your browser. Then type name and password of your local wifi hotspot, click save and MCU will restart and try to connect to the provided network. Additionally from this captive portal you can upload a new firmware. 
 
-- *How to add in Home Assistant?*
+- *How to add it in Home Assistant?*
 
-If you have Home Assistant you have to [install the ESPHome addon](https://esphome.io/guides/getting_started_hassio.html), and after that [add the device](https://esphome.io/components/api.html). All sensors, switches, LEDs will appear automatically as entities in Home Assistant. Then you can add them on the dashboard, here is one of my devices added on Home Assistant dashboard with all data from it. You can control LED2 and on the bottom is the switch slider for calibration of the CO2 sensor:
+If you have Home Assistant you have to [install the ESPHome addon](https://esphome.io/guides/getting_started_hassio.html), and after that [add the device](https://esphome.io/components/api.html). All sensors, switches, LEDs will appear automatically as entities in Home Assistant. Then you can add them on the dashboard, here is one of my devices added on Home Assistant dashboard with all data from it. LED2 can be controlled (on, off, color) from home assistant and on the bottom is the switch slider for calibration of the CO2 sensor:
 
 ![](images/hass.png)
 
