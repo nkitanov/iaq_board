@@ -1,12 +1,12 @@
 ![](images/iaq_device_3d.png)
 
 # IAQ (Indoor Air Quality) Board 
-IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap and simple, but capable**. 
+IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap, simple and capable**. 
 
 After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. **And here is my device. I am publishing all the details and documentation, so everyone can build it and adapt it freely.**
 
 ## What exactly is this thing?
-The device is based on very widely available and cheap essential components ([MCU](https://en.wikipedia.org/wiki/Microcontroller) and sensors) which can be bought in Aliexpress. The core component is a simple [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) (printed circuit board) that's why I called it **IAQ Board**. The board integrates all the components in a very small footprint. All parts are soldered on it and everyone can assemble it with some  soldering skills. The total price if you build it yourself is about 50-60 EUR. I also made simplistic holder for 3D print (6-7 EUR is you don't have a 3D printer). For these amount of money you get the following air parameters measured adequately (you might not install all sensors if you want to save money): 
+The device is based on very widely available and cheap essential components ([MCU](https://en.wikipedia.org/wiki/Microcontroller) and sensors) which can be found in Aliexpress. The core component is a simple [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) (printed circuit board) that's why I called it **IAQ Board**. The board integrates all the components in a very small footprint. All parts are soldered on it and everyone can assemble it with some  soldering skills. The total price if you build it yourself is about 50-60 EUR. I also made simplistic holder for 3D print (6-7 EUR is you don't have a 3D printer). For these amount of money you get the following air parameters measured adequately (you might not install all sensors if you want to save money): 
 - [X] ***Temperature / Humidity / Pressure***
 - [X] [***Air particles PM1, PM2.5, PM10***](https://en.wikipedia.org/wiki/Particulates)
 - [X] [***real CO2 with NDIR sensor***](https://en.wikipedia.org/wiki/Indoor_air_quality#Carbon_dioxide)
@@ -16,7 +16,7 @@ The device is based on very widely available and cheap essential components ([MC
 
 **On top of that:**
 - [X] ***At least one OLED display to show the data (can have one more on the top of the MCU board)***
-- [X] ***three RGB wide angle LEDs with auto brightness control and two of them are showing different colors based on the value of particles and CO2. 3rd LED can be used for something else. LEDs can be disabled.*** 
+- [X] ***three RGB wide angle LEDs with auto brightness and two of them are showing different colors based on the value of particles and CO2. 3rd LED can be used for something else. LEDs can be disabled.*** 
 - [X] ***auto night dimming of the displays and LEDs (can be disabled)***
 - [X] ***external button for selection of the data to show on the display***
 - [X] ***[firmware](https://en.wikipedia.org/wiki/Firmware) based on [ESPhome](https://esphome.io/), the device can be [directly added](https://esphome.io/components/api.html) in [Home Assistant](https://www.home-assistant.io/)***
@@ -25,7 +25,7 @@ The device is based on very widely available and cheap essential components ([MC
 Here is a video with all you need to know: video..............
 
 ## Who can build it?
-The device is just a simple board and almost everyone with some soldering skills can assemble it in a few simple steps:
+The device is just a simple board and almost everyone with some soldering skills can assemble it in a few steps:
 1. Download the PCB files and print the PCB somewhere like https://jlcpcb.com/
 2. Buy some components (listed in the bill of materials section) from Aliexpress or any other source.
 3. Solder everything on the board. With the exception of the ambient light sensor, all the rest is pretty easy with general soldering skills. Soldering light sensor can be done with regular soldering iron, but because of the small size of the IC, it's easier if you have heat gun or SMD reflow oven/plate.
@@ -36,27 +36,29 @@ If you have experience with electronics and microcontrollers just check the sche
 
 # What about ordering a device?
 I made this sensor for me and then decided to share it, because a lot of people might need it. I did not have intension to make money from it, that's why it's completely "open hardware" and I publish all of the data, so everyone can build it. 
-However I know that someone might be interested to get the device, but lack the skills to build it. I do not stock the parts, however I have some PCBs and if there is interest I can sell some items, partially or completely assembled devices. [Drop me an email](mailto:nkitanov@gmail.com) if you are interested in buying the PCB, partially assembled, or a complete device. Then I can gather some details if there are more people looking for this option...
+However I know that someone might be interested to get the device, but lack the skills to build it. I do not stock the parts, however I have some PCBs and if there is interest I can sell some items or partially and completely assembled devices. [Drop me an email](mailto:nkitanov@gmail.com) if you are interested in buying the PCB, partially assembled, or a complete device. Then I can gather some data if there are more people looking for this option...
 
 # Components Details
+The device with AAA battery size comparison:
+
 ![](images/iaq_device.jpg)
 ## 1. PCB
 ![](images/pcb.jpg)
 
-The PCB (printed circuit board) is very simple. It just connects the few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Of course it could be integrated even more by soldering all individual components on the PSB but then the project becomes quite more complicated and it's much more difficult to be assembled with a simpler soldering iron.
+The PCB (printed circuit board) is very simple. It just connects the few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Of course it could be integrated even more by soldering all individual components on the PCB but then it's not really a hobby project anymore and much more difficult to build it.
 It's designed on [KiCad](https://kicad-pcb.org/) and in the kicad folder you can find full KiCad project, PCB gerber files, etc.
 ## 2. Holder case
 ![](images/stand.gif)
 
-For any device the box is important. However my idea was to expose the PCB and electronics as much as possible. I like the "raw" view of electronics and in this form I find it beautiful. 
+For any device the box is important. However my idea was to expose the PCB and electronics as much as possible in order to simplify it. I like the "raw" view of electronics and in this form I find it beautiful. 
 
 Taking into account this I designed a simple holder case for "sliding" the PCB in it and holding the particle sensor. The case can stay at about 45 degrees angle. It is designed on Fusion 360 and [you can find it here](https://a360.co/2STg8GN). Here are the STEP file model for 3D print. The holder case is not perfect, I was thinking to redesign it but no time for this. I am sure someone can do it better. :) Or design a complete box to cover the electronics fully, for me it is better in this minimalistic style. 
 ## 3. Microcontroller Board
 ![](images/esp32.jpg)
 
-Initially I developed the board with using the most popular WiFi enabled MCU [ESP8266](https://en.wikipedia.org/wiki/ESP8266) mounted on the cheap and small [Wemos D1 Mini board](https://docs.wemos.cc/en/latest/d1/d1_mini.html). However this MCU have some limitations described in the tech details, so I changed it with the same size board compatible with Wemos D1 Mini 8266 version but running the newer much more powerful MCU of the same company - [ESP32](https://en.wikipedia.org/wiki/ESP32). In that way the device is quite stable, can run http server and since the board is having the same layout, on top of the D1 Mini ESP32 board you can connect extra display very easy. PCB is compatible with both D1 Mini ESP8266 or ESP32, even the labels are the same like on the older D1 board. However I do not recommend to use D1 mini with ESP8266. Also if I have to build next version of the PCB (I still have some 25 pcs), I will change pins of one of the UART sensors.
+Initially I developed the board with using the most popular WiFi enabled MCU [ESP8266](https://en.wikipedia.org/wiki/ESP8266) mounted on the cheap and small [Wemos D1 Mini board](https://docs.wemos.cc/en/latest/d1/d1_mini.html). However this MCU have some limitations described in the tech details, so I changed it with the same size board compatible with Wemos D1 Mini, but running the newer much more powerful MCU of the same company - [ESP32](https://en.wikipedia.org/wiki/ESP32). In that way the device is quite stable, can run http server and since the board is having the same layout, on top of the D1 Mini ESP32 board you can connect extra display very easy. PCB is compatible with both D1 Mini ESP8266 or ESP32, even the labels are the same like on the older D1 board. However **I do not recommend to use D1 mini with ESP8266**. Also if I have to build next version of the PCB (I still have some 25 pcs), I will change the pins of one of the UART sensors.
 
-These small size MCU board are pretty nice, they are tiny, have USB connector, onboard power supply and USB converter for programming or serial output. And you are powering the whole device with a mini USB cable.
+These small size MCU board are pretty nice, they are tiny, have USB connector, onboard power supply and USB converter for programming or serial output. And you are powering the whole device just with a mini USB cable.
 ## 4. Dust Sensor
 ![](images/pms7003.jpg)
 
@@ -64,7 +66,7 @@ Dust sensor is the Chinese [Plantower PMS7003](http://www.plantower.com/en/conte
 ## 5. CO2 sensor
 ![](images/mh-z19b.png)
 
-Carbon dioxide sensor is the Chinese [Winsen MH-Z19B](https://www.winsen-sensor.com/sensors/co2-sensor/mh-z19b.html) - the most expensive part of the device. It's quite popular for hobby air quality meters and can [reliably measure](https://www.circuits.dk/testing-mh-z19-ndir-co2-sensor-module/) up to 5000 ppm CO2 concentration.
+Carbon dioxide sensor is the Chinese [Winsen MH-Z19B](https://www.winsen-sensor.com/sensors/co2-sensor/mh-z19b.html) - the most expensive part of the device. It's quite popular for hobby air quality meters and can [adequatly measure](https://www.circuits.dk/testing-mh-z19-ndir-co2-sensor-module/) up to 5000 ppm CO2 concentration.
 ## 6. Temperature/Humidity/Pressure sensor
 ![](images/bme280.jpg)
 
@@ -100,10 +102,10 @@ There are also four [surface mounted](https://en.wikipedia.org/wiki/Surface-moun
 
 
 ## Can you skip components?
-Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :) You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on PCB for the I2C bus and it uses the resistors on the external boards.
+Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :) You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on the PCB for the I2C bus since it uses the resistors on the external boards.
 
 # Bill of Materials (BOM)
-Bellow is the list of all parts needed to assemble the device with links to sources where you can purchase them. Of course other sources can be used, just pay attention that the items are identical. For example the SSD1306 display can be found in similar physical look and dimensions but pins are not the same.
+Bellow is the list of all parts needed to assemble the device with links to sources where you can get them. Of course other sources can be used, just pay attention that the items are identical with the listed bellow. For example the SSD1306 display can be found with similar physical look and dimensions, but pins are not the same.
 
 Schematic Ref | ITEM | pcs | Comment
 --------------| ---- | :-: | -------
@@ -127,7 +129,7 @@ D1-D3 | [Neopixel 5050 LED](https://www.aliexpress.com/item/4000750610574.html?s
 # Firmware
 Firmware is created with [ESPHome](https://esphome.io/index.html). The binary file, configuration and instructions are located in firmware folder.
 
-# Schematics
+# Schematic
 Find all KiCad project in kicad folder with schematic, PCB design file, 3D models, etc. In schematic U1 (microcontroller board) is based on ESP8266 version (original Wemos D1 mini).
 ![](images/schematic.png)
 
@@ -168,13 +170,26 @@ Some of the sensors can be accidentally disconnected as on the original design t
 
 - What about short circuits of the exposed electronics?
 
-Since all the components are exposed, there is some risk of making a short circuit with a metal object. The power supply is just 5V with limited current so it shouldn't be a big worry. However be careful not to short circuit anything with a conductive object as theoretically this can damage a component. **Keep it out of reach of small children!**
+Since all the components are exposed, there is some risk of making a short circuit with a metal object. The power supply is just 5V with limited current so it shouldn't be a big worry. However be careful not to short circuit anything with a conductive object as theoretically this can damage a component. ![](https://img.shields.io/static/v1?label=&message=Keep%20it%20out%20of%20reach%20of%20small%20children!&color=red&style=flat-square)
 
 # More Tech Details
 
-# Warnings
-- outside
-- kids
-- short circuit
+As I mentioned above the initial design was based on ESP8266 microcontroller. Because of that the PCB is developed for [Wemos D1 Mini board](https://docs.wemos.cc/en/latest/d1/d1_mini.html). Later on I decided it's much better to use ESP32 version, but PCB is not yet redeveloped and PCB silkscreen (writings) is for Wemos D1 Mini with esp8266. 
+- J1 external pins was added for some extra pins available on Wemos D1 Mini for eventual connection of external sensors, inputs and outputs. These are all free left pins on esp8266 version. ESP32 version of D1 mini have 2 rows of pin which are directly usable and since there is no place on the PCB, only J1 will stay. The designations D8, D3, A0 are matching Wemos D1 mini ESP8266
+- Because of the limitations with only one hardware UART port (which is physically available only on 2 specific pins) of the ESP8266, the dust sensor is using the hardware pins, which are shared with the Wemos D1 USB to UART converter. As a result the uart output of the firmware is disabled and it's not possible to flash the device over USB while it's connected on the PCB. It needs to be disconnected from the PCB and then it can be flashed over the USB. On ESP32 there are 3 dedicated hardware UARTs which can be configured on any pin so if I do a next version of the PCB, it will be only for ESP32 and I will free up the USB converter ports for debugging. 
+- In the description of [WeMos_D1_mini_ESP32](https://www.aliexpress.com/item/4000880936043.html?spm=a2g0o.productlist.0.0.f387754egZVnTc&algo_pvid=b105e43b-6669-40bc-99c4-cf22d026995d&algo_expid=b105e43b-6669-40bc-99c4-cf22d026995d-6&btsid=0bb0623616009843570355505e4ca0&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) the pins for UART0 are crossed (TX is where RX is shown). It's easy to fix as you can select those pins but if you carefully check the ins you might wonder why is that.
+- If ESP8266 version is used there is no second dedicated hardware UART (we need two - one for dust sensor, and one for CO2 sensor). As a result the second one is "software" UART port, which uses [bit banging](https://en.wikipedia.org/wiki/Bit_banging). in combination with the WiFi ctivity it causes periodic WDT resets of the MCU - sometimes a few times for a few hours which is annoying. And this is one of reasons I use ESP32 now.
+- on the PCB there are no pullup resistors on the I2C bus. All breakout boards have these pullup resistors, so even attaching only one it enough. However if we install only the ambient light sensor and nothing more, it won't work because there will be no pullups. Also if you add more i2c breakout boards keep an eye of the resistance as it will drop with each extra resistor like [described here](https://www.bluedot.space/tutorials/how-many-devices-can-you-connect-on-i2c-bus/).
+- ESP8266 is quite unstable if you try to use AP mode, also enabling http server is too much. That's why - don't use it, use only ESP32. :)
+- JP1 solder jumper is for changing i2c slave address. In the datasheet of the sensor are described the different configuration. The default address is when JP1 is not soldered.
 
 # Known issues
+These are valid for ESP32 MCU:
+- When you open [the web interface](https://esphome.io/components/web_server.html) of the device can reset sometimes.
+- I had a batch of Neopixel 5050 LEDs which are a bit brighter than the one linked in the BOM section and sometimes they switch to white color on 100% intensity. This is fixed in max 3 sec when correct color and brightness is set back again. These LEDs are set sequentially by their protocol so apparently it interprets wrongly set command or something. This is not happening with the LEDs linked in BOM but keep it in mind that it can happen with some LEDs (especially if they are from a bright batch).
+- In the configuration I run the temperature with -1 degreeC offset. I found out these sensors shows a bit higher, and also there is some minimal temperature rise from conducted heat from the PCB. Always connect the BME280 sensor high above the PCB as in my design with the 4 pin receptacle. If you solder it lower on the PCB it might run hotter. For even more precise temperature measurement you can calibrate in esphome the value very precisely if you have access to calibrated thermometer. I was thinking also to experiment with thermocouple sticked on the hole of the dust sensor fan so it can not pick up extra heat. This is in case if you need to use this temperature as input for a thermostat, as I do. 
+
+These are valid for ESP8266 MCU, not recommended to use that MCU because of the bellow issues:
+- periodic [WDT resets](https://en.wikipedia.org/wiki/Watchdog_timer) depending of the WiFi activity, if MCU not connected to WiFi, it's ok
+- web server is almost unusable as it needs a lot of memory which is not available for this tiny MCU
+- unstable [AP fallback mode](https://esphome.io/components/wifi.html#access-point-mode), causing WDT resets, so sometimes not easy to connect to WiFi without hardcoding the credentials in the firmware
