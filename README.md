@@ -3,7 +3,7 @@
 # IAQ (Indoor Air Quality) Board 
 IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap, simple and capable**. 
 
-After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. **And here is my device. I am publishing all the details and documentation, so everyone can build it and adapt it freely.**
+After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. **And here is my device. I am publishing all the details and documentation under 'open source hardware' license, so everyone can build it and adapt it without restrictions.**
 
 ## What exactly is this thing?
 The device is based on very widely available and cheap essential components ([MCU](https://en.wikipedia.org/wiki/Microcontroller) and sensors) which can be found in Aliexpress. The core component is a simple [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) (printed circuit board) that's why I called it **IAQ Board**. The board integrates all the components in a very small footprint. All parts are soldered on it and everyone can assemble it with some  soldering skills. The total price if you build it yourself is about 50-60 EUR. I also made simplistic holder for 3D print (6-7 EUR is you don't have a 3D printer). For these amount of money you get the following air parameters measured adequately (you might not install all sensors if you want to save money): 
@@ -34,9 +34,10 @@ The device is just a simple board and almost everyone with some soldering skills
 
 If you have experience with electronics and microcontrollers just check the schematics and make whatever you wish - build your own firmware, do another PCB, connect external sensors, don't use it at all because you can make it better :). The device is quite simple for embedded electronics enthusiasts anyway...
 
-# What about ordering a device?
-I made this sensor for me and then decided to share it, because a lot of people might need it. I did not have intension to make money from it, that's why it's completely "open hardware" and I publish all of the data, so everyone can build it. 
-However I know that someone might be interested to get the device, but lack the skills to build it. I do not stock the parts, however I have some PCBs and if there is interest I can sell some items or partially and completely assembled devices. [Drop me an email](mailto:nkitanov@gmail.com) if you are interested in buying the PCB, partially assembled, or a complete device. Then I can gather some data if there are more people looking for this option...
+## What about ordering a device?
+I made this device for me and then decided to share it. I think a lot of people might be interested to have such air quality sensor. I did not have intension to make money from it, that's why it's "open hardware" and I publish all of the information, so everyone can build it. 
+
+However I know that someone might be interested in the device, but lack the skills to build it. I do not stock the parts, but I have some PCBs and if there is interest I can provide some items or partially and completely assembled devices. [Drop me an email](mailto:nkitanov@gmail.com) if you are interested in buying the PCB, partially assembled, or a complete device. Then I can gather some data if there are more people looking for this option...
 
 # Components Details
 The device with AAA battery size comparison:
@@ -121,6 +122,7 @@ C1-C4 | [Capacitor_SMD:C_0805_2012Metric](https://bg.farnell.com/wurth-elektroni
 D1-D3 | [Neopixel 5050 LED](https://www.aliexpress.com/item/4000750610574.html?spm=a2g0o.productlist.0.0.55a96722mpqDCp&algo_pvid=4be2d94a-875a-4e56-af12-1f6a3dcdf49f&algo_expid=4be2d94a-875a-4e56-af12-1f6a3dcdf49f-5&btsid=0bb0623416009856118282154ebe61&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 3
 | SW1 | [Tactile Switch B3S-1000](https://uk.farnell.com/omron/b3s-1000/switch-spno-0-05a-24v-smd/dp/177807) | 1 |
 | SW2 | [Tactile Switch B3U-1000P](https://bg.farnell.com/omron/b3u-1000p/switch-spst-no-0-05a-12v-smd/dp/1333652?st=B3U-1000P) | 1
+| | [PCB Receptacle, 1.27 mm, 10 Contacts](https://bg.farnell.com/amphenol-icc-fci/20021311-00010t4lf/receptacle-vert-1-27mm-tht-10way/dp/1865313) | 1 | This PCB Receptacle is for connecting PMS7003 dust sensor. Keep in mind these sensors come with such connector included but it's slightly taller and makes a gap of about half mm between sensor and PCB which is not ok.
 | | [SMD PCB Receptacle 8 pins](https://uk.farnell.com/samtec/ssm-108-l-sv/receptacle-2-54mm-vert-8way/dp/1668259?st=ssm-108-l-sv%20pcb%20receptacle) | 3 | two are needed for the MCU board, 3rd you can skip. It's for extra pins on the PCB but with ESP32 MCU not needed so much as extra headers can be soldered directly
 | | [PCB Receptacle 4 pin](https://uk.farnell.com/samtec/bcs-104-l-s-te/receptacle-2-54mm-vert-4way/dp/1667470?ost=bcs-104-l-s-te) | 4 | four is needed if all sensors are installed
 | | [OLED 63x48 shield](https://www.aliexpress.com/item/32981156326.html?spm=a2g0s.9042311.0.0.27424c4dO21RuC) | | not required, only if you need extra display on top of the 
@@ -137,6 +139,9 @@ Find all KiCad project in kicad folder with schematic, PCB design file, 3D model
 In the video I explain about soldering. The PCB have symbols on for the components and pins. Just pay attention to correct orientation of boards and pins.
 
 ![](images/kicad_3d.png)
+
+# User manual
+It's quite simple, everything is explained in the video.
 
 # FAQ
 - *Can I power it from a battery?*
@@ -156,7 +161,7 @@ It's explained in [ESPHome manual](https://esphome.io/components/sensor/sgp30.ht
 
 - *How to connect to WiFi?*
 
-After 1 minute of unsuccessful WiFi connection attempts, the microcontroller will start a WiFi hotspot with name `iaq_device` and password `12345678`. When you connect to the fallback network, the web interface should open automatically (see also login to network notifications). If that does not work, you can also navigate to http://192.168.4.1/ manually in your browser. Then type name and password of your local wifi hotspot, click save and MCU will restart and try to connect to the provided network. Additionally from this captive portal you can upload a new firmware. 
+After 1 minute of unsuccessful WiFi connection attempts, the microcontroller will start a WiFi hotspot with name `iaq_device` and password `12345678`. When you connect to this fallback hatspot, the web interface should open automatically (see also login to network notifications). If that does not work, you can also navigate to http://192.168.4.1/ manually in your browser. Then type name and password of your local wifi hotspot, click save and MCU will restart and try to connect to the provided network. Additionally from this captive portal you can upload a new firmware.
 
 - *How to add it in Home Assistant?*
 
@@ -166,7 +171,7 @@ If you have Home Assistant you have to [install the ESPHome addon](https://espho
 
 - *What if some of the sensors/displays is disconnected while the device works?*
 
-Some of the sensors can be accidentally disconnected as on the original design they are not soldered on the PCB but are connected on a header receptacle. No worries with that. On the display you can see `NaN` and it means there is no value from the sensor or it's out of boundaries. Just reseat the sensor and push the reset button on the MCU board or  disconnect and reconnect the USB cable.
+Some of the sensors can be accidentally disconnected as on the original design they are not soldered on the PCB but are connected on a header receptacle. No worries with that. On the display you will see `NaN` and it means there is no value from the sensor or it's out of boundaries. Just reseat the sensor and push the reset button on the MCU board or  disconnect and reconnect the USB cable.
 
 - What about short circuits of the exposed electronics?
 
@@ -176,20 +181,23 @@ Since all the components are exposed, there is some risk of making a short circu
 
 As I mentioned above the initial design was based on ESP8266 microcontroller. Because of that the PCB is developed for [Wemos D1 Mini board](https://docs.wemos.cc/en/latest/d1/d1_mini.html). Later on I decided it's much better to use ESP32 version, but PCB is not yet redeveloped and PCB silkscreen (writings) is for Wemos D1 Mini with esp8266. 
 - J1 external pins was added for some extra pins available on Wemos D1 Mini for eventual connection of external sensors, inputs and outputs. These are all free left pins on esp8266 version. ESP32 version of D1 mini have 2 rows of pin which are directly usable and since there is no place on the PCB, only J1 will stay. The designations D8, D3, A0 are matching Wemos D1 mini ESP8266
-- Because of the limitations with only one hardware UART port (which is physically available only on 2 specific pins) of the ESP8266, the dust sensor is using the hardware pins, which are shared with the Wemos D1 USB to UART converter. As a result the uart output of the firmware is disabled and it's not possible to flash the device over USB while it's connected on the PCB. It needs to be disconnected from the PCB and then it can be flashed over the USB. On ESP32 there are 3 dedicated hardware UARTs which can be configured on any pin so if I do a next version of the PCB, it will be only for ESP32 and I will free up the USB converter ports for debugging. 
-- In the description of [WeMos_D1_mini_ESP32](https://www.aliexpress.com/item/4000880936043.html?spm=a2g0o.productlist.0.0.f387754egZVnTc&algo_pvid=b105e43b-6669-40bc-99c4-cf22d026995d&algo_expid=b105e43b-6669-40bc-99c4-cf22d026995d-6&btsid=0bb0623616009843570355505e4ca0&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) the pins for UART0 are crossed (TX is where RX is shown). It's easy to fix as you can select those pins but if you carefully check the ins you might wonder why is that.
-- If ESP8266 version is used there is no second dedicated hardware UART (we need two - one for dust sensor, and one for CO2 sensor). As a result the second one is "software" UART port, which uses [bit banging](https://en.wikipedia.org/wiki/Bit_banging). in combination with the WiFi ctivity it causes periodic WDT resets of the MCU - sometimes a few times for a few hours which is annoying. And this is one of reasons I use ESP32 now.
+- Because of the limitations with only one hardware UART port (which is physically available only on 2 specific pins) of the ESP8266, the dust sensor is using the hardware pins, which are shared with the Wemos D1 USB to UART converter. As a result the uart output of the firmware is disabled and it's not possible to flash the device over USB while it's connected on the PCB. It needs to be disconnected from the PCB and then it can be flashed over the USB. On ESP32 there are 3 dedicated hardware UARTs configuarable on any pin so if I do a next version of the PCB, it will be only for ESP32 and I will free up the USB converter ports for debugging. 
+- In the description of [WeMos_D1_mini_ESP32](https://www.aliexpress.com/item/4000880936043.html?spm=a2g0o.productlist.0.0.f387754egZVnTc&algo_pvid=b105e43b-6669-40bc-99c4-cf22d026995d&algo_expid=b105e43b-6669-40bc-99c4-cf22d026995d-6&btsid=0bb0623616009843570355505e4ca0&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) the pins for UART0 are crossed (TX is where RX is shown). It's easy to fix as you can select those pins but if you carefully check the pins you might wonder why is that.
+- If ESP8266 version is used there is no second dedicated hardware UART (we need two - one for dust sensor, and one for CO2 sensor). As a result the second one is "software" UART port, which uses [bit banging](https://en.wikipedia.org/wiki/Bit_banging). in combination with the WiFi activity it causes periodic WDT resets of the MCU - sometimes a few times for a few hours which is annoying. And this is one of reasons I use ESP32 now.
 - on the PCB there are no pullup resistors on the I2C bus. All breakout boards have these pullup resistors, so even attaching only one it enough. However if we install only the ambient light sensor and nothing more, it won't work because there will be no pullups. Also if you add more i2c breakout boards keep an eye of the resistance as it will drop with each extra resistor like [described here](https://www.bluedot.space/tutorials/how-many-devices-can-you-connect-on-i2c-bus/).
 - ESP8266 is quite unstable if you try to use AP mode, also enabling http server is too much. That's why - don't use it, use only ESP32. :)
 - JP1 solder jumper is for changing i2c slave address. In the datasheet of the sensor are described the different configuration. The default address is when JP1 is not soldered.
 
 # Known issues
 These are valid for ESP32 MCU:
-- When you open [the web interface](https://esphome.io/components/web_server.html) of the device can reset sometimes.
-- I had a batch of Neopixel 5050 LEDs which are a bit brighter than the one linked in the BOM section and sometimes they switch to white color on 100% intensity. This is fixed in max 3 sec when correct color and brightness is set back again. These LEDs are set sequentially by their protocol so apparently it interprets wrongly set command or something. This is not happening with the LEDs linked in BOM but keep it in mind that it can happen with some LEDs (especially if they are from a bright batch).
+- When you open [the web interface](https://esphome.io/components/web_server.html) of the device - it resets sometimes.
+- I had a batch of Neopixel 5050 LEDs which are a bit brighter than the one linked in the BOM section and sometimes they switch to white color and 100% intensity. This is fixed in max 3 sec when correct color and brightness is set back again. These LEDs are set sequentially by their protocol so apparently it interprets wrongly set command or something. This is not happening with the LEDs linked in BOM but keep it in mind that it can happen with some LEDs (especially if they are from a bright batch).
 - In the configuration I run the temperature with -1 degreeC offset. I found out these sensors shows a bit higher, and also there is some minimal temperature rise from conducted heat from the PCB. Always connect the BME280 sensor high above the PCB as in my design with the 4 pin receptacle. If you solder it lower on the PCB it might run hotter. For even more precise temperature measurement you can calibrate in esphome the value very precisely if you have access to calibrated thermometer. I was thinking also to experiment with thermocouple sticked on the hole of the dust sensor fan so it can not pick up extra heat. This is in case if you need to use this temperature as input for a thermostat, as I do. 
 
-These are valid for ESP8266 MCU, not recommended to use that MCU because of the bellow issues:
+These are valid for ESP8266 MCU (including the previous issues), not recommended to use that MCU because of the bellow issues:
 - periodic [WDT resets](https://en.wikipedia.org/wiki/Watchdog_timer) depending of the WiFi activity, if MCU not connected to WiFi, it's ok
-- web server is almost unusable as it needs a lot of memory which is not available for this tiny MCU
+- web server is almost unusable as it needs a lot of memory which is not available on this tiny MCU
 - unstable [AP fallback mode](https://esphome.io/components/wifi.html#access-point-mode), causing WDT resets, so sometimes not easy to connect to WiFi without hardcoding the credentials in the firmware
+
+# License 
+The device is "open source hardware". Anyone can study, modify, distribute, make, and sell the design or hardware based on that design.

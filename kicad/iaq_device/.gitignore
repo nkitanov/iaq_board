@@ -1,0 +1,7 @@
+plot/*
+*-bak
+_autosave-*
+*.step
+fp-info-cache
+*.csv
+*.html
