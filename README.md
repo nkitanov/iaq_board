@@ -44,9 +44,10 @@ The device with AAA battery size comparison:
 
 ![](images/iaq_device.jpg)
 ## 1. PCB
+![](images/pcb.png)
 ![](images/pcb.jpg)
 
-The PCB (printed circuit board) is very simple. It just connects the few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Of course it could be integrated even more by soldering all individual components on the PCB but then it's not really a hobby project anymore and much more difficult to build it.
+The PCB (printed circuit board) is very simple and compact. It's 70x43mm (phost above are showing it larger than the actual size) It just connects the few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Of course it could be integrated even more by soldering all individual components on the PCB but then it's not really a hobby project anymore and much more difficult to build it.
 It's designed on [KiCad](https://kicad-pcb.org/) and in the kicad folder you can find full KiCad project, PCB gerber files, etc.
 ## 2. Holder case
 ![](images/stand.gif)
@@ -141,39 +142,64 @@ In the video I explain about soldering. The PCB have symbols on for the componen
 ![](images/kicad_3d.png)
 
 # User manual
-It's quite simple, everything is explained in the video.
+It's quite simple, the device have only one "multi functional" button SW1, and one micro button SW2 for calibration of the CO2 sensor.
+
+### Multi function button
+- Short press "rotates" the data on the right bigger display. By default it starts showing only PM2.5 and CO2 with larger fonts as these are the most important air quality parameters. Each short press of the button rotates this sequence:
+```
+PM2.5     Temperature    PM1         Amb.Light  PM1         Displays OFF
+CO2 ----> Humidity ----> PM2.5 ----> TVOC ----> PM2.5 ----> (both displays
+ ^        Pressure       PM10        eCO2       PM10        turned off)
+ |                                               Temperature      |
+ |                                               Humidity         |
+ |                                               Pressure         |
+ | _ _ _ _ _ _ _ _ _ _ _short click_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|
+```
+- Press and hold the button from **2 to 5 sec**: On the display you see `LEDs status: OFF`. This means the status LEDs will be tuned off. Do the same to toggle back to `LEDs status: ON`.
+- Press and hold the button from **5 to 10 sec**: On the display you see `Night dim: OFF`. This means the LEDs and displays will not be turned off if ambient light fall under 2 lux. Do the same to toggle back to `Night dim: ON`.
+- Press and hold from 10 to 20 sec: On the display for 20 sec it will show the following data:
+```
+YAML ver: (shows version of the esphome yaml config)
+ESPHome ver: (ESPHome version which build the firmware)
+IP: (IP address if connected to WiFi)
+Connected to: (SSID of the wifi, if connected)
+LED brightness: (brigtness correction of the LEDs)
+```
+### LED Brightness control and correction 
+
+
 
 # FAQ
-- *Can I power it from a battery?*
+#### *Can I power it from a battery?*
 
 The device is powered from regular micro USB cable with 5V and consumes between 100-250 mA. You can power it with USB battery pack but not for too long (for example 4000 mAh battery will be depleted in about 20h). If you need to operate it from a battery, firmware have to enter the MCU in a [deep sleep](https://esphome.io/components/deep_sleep.html) mode periodically. You have to build your own firmware. I do not run any of my devices in deep sleep as I do not see a reason for that.
-- *Can it be installed outdoors?*
+#### *Can it be installed outdoors?*
 
 The device is not waterproof. It can run outdoors if you install it in enclosure which is protecting it from water. It can handle high humidity maybe (never tested it).
 
-- *How to calibrate MH-Z19B CO2 sensor?*
+#### *How to calibrate MH-Z19B CO2 sensor?*
 
 Periodically (let's say one time per month) and after installation of a new sensor calibration needs to be performed. The calibration is done by exposing it to the outside air which have about 400ppm CO2 concentration for about 20-30 min and then press and hold the micro button SW2 for more then 7 sec. In that way the value of the sensor is "zeroed" at 400 ppm. Alternatively if the device is added in Home Assistant, there is a template switch called `switch.co2_sensor_zero_calibration` and you just turn it on. It's doing the same as pusing the button but you are doing it remotely over the WiFi. [Here](https://www.circuits.dk/testing-mh-z19-ndir-co2-sensor-module/) are more details about this sensor and calibration.
 
-- *Ho how calibrate SGP30 VOC sensor?*
+#### *How to calibrate SGP30 VOC sensor?*
 
 It's explained in [ESPHome manual](https://esphome.io/components/sensor/sgp30.html). You need periodically to update the firmware which is quite easy if you use Home Assistant. In my initial tests I noticed even without calibration value, the sensor shows some values and can detect smells, alcohol vapors, etc. 
 
-- *How to connect to WiFi?*
+#### *How to connect to WiFi?*
 
 After 1 minute of unsuccessful WiFi connection attempts, the microcontroller will start a WiFi hotspot with name `iaq_device` and password `12345678`. When you connect to this fallback hatspot, the web interface should open automatically (see also login to network notifications). If that does not work, you can also navigate to http://192.168.4.1/ manually in your browser. Then type name and password of your local wifi hotspot, click save and MCU will restart and try to connect to the provided network. Additionally from this captive portal you can upload a new firmware.
 
-- *How to add it in Home Assistant?*
+#### *How to add it in Home Assistant?*
 
 If you have Home Assistant you have to [install the ESPHome addon](https://esphome.io/guides/getting_started_hassio.html), and after that [add the device](https://esphome.io/components/api.html). All sensors, switches, LEDs will appear automatically as entities in Home Assistant. Then you can add them on the dashboard, here is one of my devices added on Home Assistant dashboard with all data from it. LED2 can be controlled (on, off, color) from home assistant and on the bottom is the switch slider for calibration of the CO2 sensor:
 
 ![](images/hass.png)
 
-- *What if some of the sensors/displays is disconnected while the device works?*
+#### *What if some of the sensors/displays is disconnected while the device works?*
 
 Some of the sensors can be accidentally disconnected as on the original design they are not soldered on the PCB but are connected on a header receptacle. No worries with that. On the display you will see `NaN` and it means there is no value from the sensor or it's out of boundaries. Just reseat the sensor and push the reset button on the MCU board or  disconnect and reconnect the USB cable.
 
-- What about short circuits of the exposed electronics?
+### *What about short circuits of the exposed electronics?*
 
 Since all the components are exposed, there is some risk of making a short circuit with a metal object. The power supply is just 5V with limited current so it shouldn't be a big worry. However be careful not to short circuit anything with a conductive object as theoretically this can damage a component. ![](https://img.shields.io/static/v1?label=&message=Keep%20it%20out%20of%20reach%20of%20small%20children!&color=red&style=flat-square)
 
