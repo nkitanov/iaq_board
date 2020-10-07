@@ -18,6 +18,7 @@ The device is based on very widely available and cheap essential components ([MC
 - [X] ***At least one OLED display to show the data (can have one more on the top of the MCU board)***
 - [X] ***three RGB wide angle LEDs with auto brightness and two of them are showing different colors based on the value of particles and CO2. 3rd LED can be used for something else. LEDs can be disabled.*** 
 - [X] ***auto night dimming of the displays and LEDs (can be disabled)***
+- [X] ***MIN/MAX values of Temperature, PM2.5 and CO2***
 - [X] ***external button for selection of the data to show on the display***
 - [X] ***[firmware](https://en.wikipedia.org/wiki/Firmware) based on [ESPhome](https://esphome.io/), the device can be [directly added](https://esphome.io/components/api.html) in [Home Assistant](https://www.home-assistant.io/)***
 - [X] ***WiFi access to the device with http server and [REST API](https://esphome.io/web-api/index.html) and [esphome native API](https://esphome.io/components/api.html)  to read the sensor data***
@@ -106,6 +107,7 @@ There are also four [surface mounted](https://en.wikipedia.org/wiki/Surface-moun
 ## Can you skip components?
 Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :) You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on the PCB for the I2C bus since it uses the resistors on the external boards.
 
+
 # Bill of Materials (BOM)
 Bellow is the list of all parts needed to assemble the device with links to sources where you can get them. Of course other sources can be used, just pay attention that the items are identical with the listed bellow. For example the SSD1306 display can be found with similar physical look and dimensions, but pins are not the same.
 
@@ -119,14 +121,14 @@ U4 | [BME280 breakout board](https://www.aliexpress.com/item/4000166540445.html?
 U5 | [MH-Z19B Sensor](https://www.aliexpress.com/item/32860834286.html?spm=a2g0s.9042311.0.0.27424c4dEmysvU) | 1
 U6 | [SGP30 breakout board](https://www.aliexpress.com/item/4000004614708.html?spm=a2g0o.productlist.0.0.688164abtt6ZRA&algo_pvid=7f813f70-3c1d-42ee-b6cf-9bf501c47314&algo_expid=7f813f70-3c1d-42ee-b6cf-9bf501c47314-1&btsid=3f683b7d-631a-4373-b0a1-f574cd317549&ws_ab_test=searchweb0_0,searchweb201602_9,searchweb201603_55) | 1
 U7 | [TLS2561 light sensor](https://www.aliexpress.com/item/33056165996.html?spm=a2g0s.9042311.0.0.15314c4draqb6x) | 1
-C1-C4 | [Capacitor_SMD:C_0805_2012Metric](https://bg.farnell.com/wurth-elektronik/885012207016/cap-0-1-f-10v-10-x7r-0805/dp/2534051?st=smd%20capacitors) | 4
+C1-C4 | [0.1 uF Capacitor_SMD:C_0805_2012Metric](https://bg.farnell.com/wurth-elektronik/885012207016/cap-0-1-f-10v-10-x7r-0805/dp/2534051?st=smd%20capacitors) | 4
 D1-D3 | [Neopixel 5050 LED](https://www.aliexpress.com/item/4000750610574.html?spm=a2g0o.productlist.0.0.55a96722mpqDCp&algo_pvid=4be2d94a-875a-4e56-af12-1f6a3dcdf49f&algo_expid=4be2d94a-875a-4e56-af12-1f6a3dcdf49f-5&btsid=0bb0623416009856118282154ebe61&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 3
 | SW1 | [Tactile Switch B3S-1000](https://uk.farnell.com/omron/b3s-1000/switch-spno-0-05a-24v-smd/dp/177807) | 1 |
 | SW2 | [Tactile Switch B3U-1000P](https://bg.farnell.com/omron/b3u-1000p/switch-spst-no-0-05a-12v-smd/dp/1333652?st=B3U-1000P) | 1
 | | [PCB Receptacle, 1.27 mm, 10 Contacts](https://bg.farnell.com/amphenol-icc-fci/20021311-00010t4lf/receptacle-vert-1-27mm-tht-10way/dp/1865313) | 1 | This PCB Receptacle is for connecting PMS7003 dust sensor. Keep in mind these sensors come with such connector included but it's slightly taller and makes a gap of about half mm between sensor and PCB which is not ok.
 | | [SMD PCB Receptacle 8 pins](https://uk.farnell.com/samtec/ssm-108-l-sv/receptacle-2-54mm-vert-8way/dp/1668259?st=ssm-108-l-sv%20pcb%20receptacle) | 3 | two are needed for the MCU board, 3rd you can skip. It's for extra pins on the PCB but with ESP32 MCU not needed so much as extra headers can be soldered directly
 | | [PCB Receptacle 4 pin](https://uk.farnell.com/samtec/bcs-104-l-s-te/receptacle-2-54mm-vert-4way/dp/1667470?ost=bcs-104-l-s-te) | 4 | four is needed if all sensors are installed
-| | [OLED 63x48 shield](https://www.aliexpress.com/item/32981156326.html?spm=a2g0s.9042311.0.0.27424c4dO21RuC) | | not required, only if you need extra display on top of the 
+| | [OLED 63x48 shield](https://www.aliexpress.com/item/32981156326.html?spm=a2g0s.9042311.0.0.27424c4dO21RuC) | 1 | not required, only if you want an extra display on top of the 
 | | Holder case | 1 | it's not required to have it but it makes the device completed
 
 # Firmware
@@ -145,19 +147,21 @@ In the video I explain about soldering. The PCB have symbols on for the componen
 It's quite simple, the device have only one "multi functional" button SW1, and one micro button SW2 for calibration of the CO2 sensor.
 
 ### Multi function button
-- Short press "rotates" the data on the right bigger display. By default it starts showing only PM2.5 and CO2 with larger fonts as these are the most important air quality parameters. Each short press of the button rotates this sequence:
+- Short press "rotates" the data on the right bigger display. By default it starts showing only PM2.5 and CO2 with larger fonts as these are the most important air quality parameters. This is also the default "screen" and every time the device is restarted it will show it. Each short press of the button rotates this sequence:
 ```
-PM2.5     Temperature    PM1         Amb.Light  PM1         Displays OFF
-CO2 ----> Humidity ----> PM2.5 ----> TVOC ----> PM2.5 ----> (both displays
- ^        Pressure       PM10        eCO2       PM10        turned off)
- |                                               Temperature      |
- |                                               Humidity         |
- |                                               Pressure         |
- | _ _ _ _ _ _ _ _ _ _ _short click_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|
+DEFAULT======================================================MIN/MAX===============
+PM2.5     Temperature    PM1         Amb.Light  PM1         Temp. MIN        Displays OFF
+CO2 ----> Humidity ----> PM2.5 ----> TVOC ----> PM2.5 ----> PM2.5 MIN ----> (both displays
+ ^        Pressure       PM10        eCO2       PM10        CO2 MIN          turned off)
+ |                                              Temperature Temp. MAX             |
+ |                                              Humidity    PM2.5 MAX             |
+ |                                              Pressure    CO2 MAX               |
+ | _ _ _ _ _ _ _ _ _ _ _short click_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|
 ```
-- Press and hold the button from **2 to 5 sec**: On the display you see `LEDs status: OFF`. This means the status LEDs will be tuned off. Do the same to toggle back to `LEDs status: ON`.
-- Press and hold the button from **5 to 10 sec**: On the display you see `Night dim: OFF`. This means the LEDs and displays will not be turned off if ambient light fall under 2 lux. Do the same to toggle back to `Night dim: ON`.
-- Press and hold from 10 to 20 sec: On the display for 20 sec it will show the following data:
+- Press and hold the button from **2 to 5 sec**: On the display you see `LEDs status: OFF`. This means the status LEDs will be tuned off. Do the same to toggle back to `LEDs status: ON`. This setting is saved in the non volatile memory, so it will keep it's setting even if the MCU is restarted. 
+- Press and hold the button from **5 to 10 sec**: On the display you see `Night dim: OFF`. This means the LEDs and displays will not be turned off if ambient light fall under 2 lux. Do the same to toggle back to `Night dim: ON`. This setting is saved in the non volatile memory, so it will keep it's setting even if the MCU is restarted. 
+- Press and hold from **10 to 25 sec**: On the display you see `MIN-MAX Reset!`. It reset the minimum and maximum values of temperature, PM2.5 and CO2 on screen 6. Please note these resets each time the device is restarted. Keep in mind that 1.5 min after boot and reset, values of CO2 and temperature might not be correct.
+- Press and hold from **15 to 20 sec**: On the display for 20 sec it will show the following data:
 ```
 YAML ver: (shows version of the esphome yaml config)
 ESPHome ver: (ESPHome version which build the firmware)
@@ -165,8 +169,10 @@ IP: (IP address if connected to WiFi)
 Connected to: (SSID of the wifi, if connected)
 LED brightness: (brigtness correction of the LEDs)
 ```
-### LED Brightness control and correction 
+### LED Brightness control and correction
+Led brightness is controlled periodically (each 3 sec), proportional of the ambient light measured by the TLS2561 sensor. If there is no ambient light sensor installed LEDs are constant at 25%, but auto turn off will also not work. Logic of this simple auto control is configured in this code section.
 
+Also by default setting of these LEDs are to begin from 11% brightness. If it's bellow 11% they are turned off. As mentioned in the LED description setting these Chinese LEDs comes with different intensity and the ones listed in Bill of Materials section are too weak at the lowest setting. That's why I added brightness correction setting which can go from 0% to +40% in 5% step. This setting is done by connecting pin D8 of the J1 pin header to GND. Each time you connect D8 to GND it steps up with 5% until it reaches +40% and then goes back to 0% (no correction). This setting is saved in the non volatile memory of the MCU and it does not have to be configured wit5h each reset. Alternatively if the device is added in Home Assistant, you will see a template switch called `brightness_correction`, which is doing exactly the same thing as connecting.
 
 
 # FAQ
@@ -218,7 +224,7 @@ As I mentioned above the initial design was based on ESP8266 microcontroller. Be
 These are valid for ESP32 MCU:
 - When you open [the web interface](https://esphome.io/components/web_server.html) of the device - it resets sometimes.
 - I had a batch of Neopixel 5050 LEDs which are a bit brighter than the one linked in the BOM section and sometimes they switch to white color and 100% intensity. This is fixed in max 3 sec when correct color and brightness is set back again. These LEDs are set sequentially by their protocol so apparently it interprets wrongly set command or something. This is not happening with the LEDs linked in BOM but keep it in mind that it can happen with some LEDs (especially if they are from a bright batch).
-- In the configuration I run the temperature with -1 degreeC offset. I found out these sensors shows a bit higher, and also there is some minimal temperature rise from conducted heat from the PCB. Always connect the BME280 sensor high above the PCB as in my design with the 4 pin receptacle. If you solder it lower on the PCB it might run hotter. For even more precise temperature measurement you can calibrate in esphome the value very precisely if you have access to calibrated thermometer. I was thinking also to experiment with thermocouple sticked on the hole of the dust sensor fan so it can not pick up extra heat. This is in case if you need to use this temperature as input for a thermostat, as I do. 
+- In the configuration I run the temperature with -1 degreeC offset. I found out these sensors shows a bit higher, and also there is some minimal temperature rise from conducted heat from the PCB. Always connect the BME280 sensor high above the PCB as in my design with the 4 pin receptacle. If you solder it lower on the PCB it might run hotter. For even more precise temperature measurement you can calibrate in esphome the value very precisely if you have access to calibrated thermometer. I was thinking also to experiment with thermocouple on the hole of the dust sensor fan so it can not pick up extra heat. This is in case if you need to use this temperature as input for a thermostat, as I do. 
 
 These are valid for ESP8266 MCU (including the previous issues), not recommended to use that MCU because of the bellow issues:
 - periodic [WDT resets](https://en.wikipedia.org/wiki/Watchdog_timer) depending of the WiFi activity, if MCU not connected to WiFi, it's ok

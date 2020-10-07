@@ -1,0 +1,25 @@
+                    !lambda |-
+                        /*
+                            This code is setting the brightness of all 3 LEDs when the Ambient light sensor
+                            is updated. The LEDs are very bright so their brightness is limited to 50% on 1000 lux.
+                            Brightness regulates from 11% to 50%+correction from 2 to 1000 lux linear.
+                            These LEDs turn off if brightness is 10% or lower, 11% is the weakest on setting.
+                            There is correction option of up to 40% for weaker LEDs and limit increases also with
+                            the same amount of correction value. For very bright conditions intensity goes to 100%.
+                        //*/
+                        
+                        float limit = 0.5;
+                        if (isnan(id(light_sens).state) || id(light_sens).state > 10000) return 1;
+                        if (id(brightness_correction) > 0) limit = limit+id(brightness_correction);
+                        
+                        // Turn off (0.1 brightness) or keep on (0.11) if it's too dark depending on the led_status mode
+                        if (id(light_sens).state < 2 || !id(led_status)) {
+                            if (id(night_mode) && id(led_status)) {
+                                return 0.11+id(brightness_correction);
+                            } else return 0.1;
+                        } else {
+                            float bright = ((id(light_sens).state*0.0004)+id(brightness_correction)+0.11);
+                            if (bright > limit) {
+                                return limit;
+                            } else return bright;
+                        }
