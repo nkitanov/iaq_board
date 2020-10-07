@@ -380,9 +380,9 @@ sensor:
         accuracy_decimals: 1
         id: tvoc
       update_interval: 1s
-      baseline:
-        eco2_baseline: 0x92B7
-        tvoc_baseline: 0x935A
+      # baseline:
+      #   eco2_baseline: 0x92B7
+      #   tvoc_baseline: 0x935A
       compensation:
          temperature_source: temp
          humidity_source: hum

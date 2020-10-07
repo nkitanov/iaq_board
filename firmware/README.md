@@ -1,7 +1,5 @@
 # Firmware
 
-![](https://esphome.io/_images/logo-text.svg)
-
 Firmware is created with [ESPHome](https://esphome.io/index.html) -  it is a system to control your ESP8266/ESP32 by simple yet powerful configuration files and control them remotely through Home Automation systems.
 
 I am not going to explain in details [the configuration yaml file.](iaq_board.yaml) If you want to modify it, you need to get familiar with esphome. The config file is relatively complicated compared with average esphome configurations, so there is some steeper learning curve, especially if you never programmed an MCU before. However by using esphome, you can build very complex things without writing a single line of code, as the whole instruction is in the yaml config file. It's amazing how much time it saves!
