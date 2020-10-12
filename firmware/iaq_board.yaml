@@ -5,8 +5,8 @@ esphome:
   # The library dep is added because of a bug in the neopixel library 
   # ver. 2.5.7. Can be removed when library is updated in future ver.
   # of esphome
-  # platformio_options:
-  #   lib_deps: NeoPixelBus@2.6.0
+  platformio_options:
+    lib_deps: NeoPixelBus@2.6.0
   on_boot:
     then:
       - lambda: 'id(pm2_5).publish_state(1.0);'
@@ -45,7 +45,7 @@ script:
           value: '0.0'
 
 wifi:
-  # networks: !include wifi/wifi.yaml
+  #networks: !include wifi/wifi.yaml
   ap:
     ssid: "iaq_board"
     password: "12345678"
@@ -64,7 +64,7 @@ api:
 ota:
 
 substitutions:
-  yaml_version: "1.0.0"
+  yaml_version: "1.1.0"
 
 globals:
   - id: button_mode
@@ -194,6 +194,12 @@ binary_sensor:
       - min_length: 15s
         max_length: 20s
         then:
+          - lambda: |-
+              if (id(brightness_correction) >= 0.4) { id(brightness_correction) = 0.0; }
+              else { id(brightness_correction) += 0.05; }
+      - min_length: 20s
+        max_length: 30s
+        then:
           - globals.set:
               id: version
               value: 'true'
@@ -201,19 +207,6 @@ binary_sensor:
           - globals.set:
               id: version
               value: 'false'
-  - platform: gpio
-    id: brightness
-    pin:
-      number: GPIO05
-      mode: INPUT_PULLUP
-      inverted: True
-    on_click:
-      - min_length: 25ms
-        max_length: 500ms
-        then:
-          - lambda: |-
-              if (id(brightness_correction) >= 0.4) { id(brightness_correction) = 0.0; }
-              else { id(brightness_correction) += 0.05; }
 sensor:
     - platform: pmsx003
       type: PMSX003
@@ -224,51 +217,68 @@ sensor:
       pm_2_5:
         name: "PM 2.5 Concentration"
         id: pm2_5
-        on_value_range:
-          - below: 10
-            then: 
-              - light.control:
-                  id: led1
-                  red: 0
-                  green: 1
-                  blue: 0
-          - above: 10
-            below: 20
-            then: 
-              - light.control:
-                  id: led1
-                  red: 0
-                  green: 1
-                  blue: 1
-          - above: 20
-            below: 30
-            then: 
-              - light.control:
-                  id: led1
-                  red: 1
-                  green: 1
-                  blue: 0
-          
-          - above: 30
-            below: 40
-            then: 
-              - light.control:
-                  id: led1
-                  red: 1
-                  green: 0
-                  blue: 1
-          - above: 40
-            then: 
-              - light.control:
-                  id: led1
-                  red: 1
-                  green: 0
-                  blue: 0
         on_value:
-          then:
-            - lambda: |-
-                if(id(pm2_5).state > id(pm_max)) { id(pm_max) = id(pm2_5).state; }
-                if(id(pm2_5).state < id(pm_min)) { id(pm_min) = id(pm2_5).state; }
+          - if:
+              condition:
+                sensor.in_range:
+                  id: pm2_5
+                  below: 10
+              then: 
+                - light.control:
+                    id: led1
+                    red: 0
+                    green: 1
+                    blue: 0
+          - if:
+              condition:
+                sensor.in_range:
+                  id: pm2_5
+                  above: 10
+                  below: 20
+              then: 
+                - light.control:
+                    id: led1
+                    red: 0
+                    green: 1
+                    blue: 1
+          - if:
+              condition:
+                sensor.in_range:
+                  id: pm2_5
+                  above: 20
+                  below: 30
+              then: 
+                - light.control:
+                    id: led1
+                    red: 1
+                    green: 1
+                    blue: 0
+          - if:
+              condition:
+                sensor.in_range:
+                  id: pm2_5
+                  above: 30
+                  below: 40
+              then: 
+                - light.control:
+                    id: led1
+                    red: 1
+                    green: 0
+                    blue: 1
+          - if:
+              condition:
+                sensor.in_range:
+                  id: pm2_5
+                  above: 40
+              then: 
+                - light.control:
+                    id: led1
+                    red: 1
+                    green: 0
+                    blue: 0
+          - lambda: |-
+              if(id(pm2_5).state > id(pm_max)) { id(pm_max) = id(pm2_5).state; }
+              if(id(pm2_5).state < id(pm_min)) { id(pm_min) = id(pm2_5).state; }
       pm_10_0:
         name: "PM 10 Concentration"
         id: pm10
@@ -299,47 +309,65 @@ sensor:
       co2:
         name: "CO2"
         id: co2
-        on_value_range:
-          - below: 700
-            then: 
-              - light.control:
-                  id: led3
-                  red: 0
-                  green: 1
-                  blue: 0
-          - above: 700
-            below: 1000
-            then: 
-              - light.control:
-                  id: led3
-                  red: 0
-                  green: 1
-                  blue: 1
-          - above: 1000
-            below: 1500
-            then: 
-              - light.control:
-                  id: led3
-                  red: 1
-                  green: 1
-                  blue: 0
-          
-          - above: 1500
-            below: 2100
-            then: 
-              - light.control:
-                  id: led3
-                  red: 1
-                  green: 0
-                  blue: 1
-          - above: 2100
-            then: 
-              - light.control:
-                  id: led3
-                  red: 1
-                  green: 0
-                  blue: 0
         on_value:
+          - if:
+              condition:
+                sensor.in_range:
+                  id: co2
+                  below: 700
+              then: 
+                - light.control:
+                    id: led3
+                    red: 0
+                    green: 1
+                    blue: 0
+          - if:
+              condition:
+                sensor.in_range:
+                  id: co2
+                  above: 700
+                  below: 1000
+              then: 
+                - light.control:
+                    id: led3
+                    red: 0
+                    green: 1
+                    blue: 1
+          - if:
+              condition:
+                sensor.in_range:
+                  id: co2
+                  above: 1000
+                  below: 1500
+              then: 
+                - light.control:
+                    id: led3
+                    red: 1
+                    green: 1
+                    blue: 0
+          - if:
+              condition:
+                sensor.in_range:
+                  id: co2
+                  above: 1500
+                  below: 2100
+              then: 
+                - light.control:
+                    id: led3
+                    red: 1
+                    green: 0
+                    blue: 1
+          - if:
+              condition:
+                sensor.in_range:
+                  id: co2
+                  above: 2100
+              then: 
+                - light.control:
+                    id: led3
+                    red: 1
+                    green: 0
+                    blue: 0
           - lambda: |-
               if(id(co2).state > id(co_max)) { id(co_max) = id(co2).state; }
               if(id(co2).state < id(co_min)) { id(co_min) = id(co2).state; }
@@ -380,9 +408,9 @@ sensor:
         accuracy_decimals: 1
         id: tvoc
       update_interval: 1s
-      # baseline:
-      #   eco2_baseline: 0x92B7
-      #   tvoc_baseline: 0x935A
+      baseline:
+        eco2_baseline: 0x92B7
+        tvoc_baseline: 0x935A
       compensation:
          temperature_source: temp
          humidity_source: hum
