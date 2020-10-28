@@ -26,12 +26,12 @@ The device is based on very widely available and cheap essential components ([MC
 Here is a video with all you need to know: video..............
 
 ## Who can build it?
-The device is just a simple board and almost everyone with some soldering skills can assemble it in a few steps:
+The device is just a simple PCB board and almost everyone with some soldering skills can assemble it in a few steps:
 1. Download the PCB files and print the PCB somewhere like https://jlcpcb.com/
 2. Buy some components (listed in the bill of materials section) from Aliexpress or any other source.
 3. Solder everything on the board. With the exception of the ambient light sensor, all the rest is pretty easy with general soldering skills. Soldering light sensor can be done with regular soldering iron, but because of the small size of the IC, it's easier if you have heat gun or SMD reflow oven/plate.
-4. Flash the microcontroller with the esphome firmware following the manual. You can write your own firmware if you have the skills. :) 
-5. Print the holder on 3D printer if you wish. I have some sensors without it and they are perfectly fine, so it's up to you.
+4. Flash the microcontroller with the esphome firmware [following the manual](firmware/). You can write your own firmware if you have the skills. :) 
+5. Print the holder case on 3D printer if you wish. I have some sensors without it and they are perfectly fine, so it's up to you.
 
 If you have experience with electronics and microcontrollers just check the schematics and make whatever you wish - build your own firmware, do another PCB, connect external sensors, don't use it at all because you can make it better :). The device is quite simple for embedded electronics enthusiasts anyway...
 
@@ -81,14 +81,14 @@ The light sensor is [TSL 2561](https://ams.com/tsl2561) and it's the only sensor
 ## 8. LEDs
 The device have three [Neopixel 5050](https://www.digikey.com/catalog/en/partgroup/neopixel-rgb-5050-led-with-integrated-driver-chip-100-pack/70939) RGB multicolor LEDs. These LEDs are mostly found in the colorful LED strips and are controlled over a single wire. In my esphome based firmware left LED color is indicating the level of PM2.5 and change the colors depending on the value. The same is for the right (LED3) but it indicates CO2 value. Middle one is not active when the device is in standalone mode. But if you add it in Home Assistant you can control it and change the color. I have a device in the living room which turns red when air purifier in the bedroom is running, controlled by [Home Assistant](https://www.home-assistant.io/).
 
-**Colors of the LED1 and LED3 depends on this table:**
-PM2.5 value (um/m3)<br>LED 1 | CO2 value (ppm)<br>LED 3 | Color |  R  |  G  |  B
-:-----------------: | :-------------: | :---: | :-: | :-: | :-: 
-< 10 | < 700 | ![](https://img.shields.io/static/v1?label=&message=GREEN&color=green) | off | on | off 
-11 - 20 | 700 - 1000 | ![](https://img.shields.io/static/v1?label=&message=CYAN&color=cyan) | off | on | on 
-20 - 30 | 1000 - 1500 | ![](https://img.shields.io/static/v1?label=&message=YELLOW&color=yellow) | on | on | off 
-30 - 40 | 1500 - 2100 | ![](https://img.shields.io/static/v1?label=&message=MAGENTA&color=magenta) | on | off | on 
-\> 50 | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | on 
+**Colors of the LEDs depends on this table:**
+PM2.5 value (um/m3)<br>LED 1 | [AQI (Air Quality Index for PM2.5 24h average)](https://airindex.eea.europa.eu/Map/AQI/Viewer/)<br>LED 2 | CO2 value (ppm)<br>LED 3 | Color |  R  |  G  |  B
+:-----------------: | :-------------: | :-------------: | :---: | :-: | :-: | :-: 
+< 10 | < 10 | < 700 | ![](https://img.shields.io/static/v1?label=&message=GREEN&color=green) | off | on | off 
+11 - 20 | 10 - 20 | 700 - 1000 | ![](https://img.shields.io/static/v1?label=&message=CYAN&color=cyan) | off | on | on 
+20 - 30 | 20 - 25 | 1000 - 1500 | ![](https://img.shields.io/static/v1?label=&message=YELLOW&color=yellow) | on | on | off 
+30 - 40 | 25 - 50 | 1500 - 2100 | ![](https://img.shields.io/static/v1?label=&message=MAGENTA&color=magenta) | on | off | on 
+\> 50 | > 50 | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | on 
 
 ## 9. Displays
 The main display is the popular SSD1306 128x64 OLED display. On the top of the MCU board you can install extra [OLED 63x48](https://docs.wemos.cc/en/latest/d1_mini_shiled/oled_0_66.html) shield from Lolin which shows temperature, humidity and air pressure.
@@ -105,7 +105,7 @@ There are also four [surface mounted](https://en.wikipedia.org/wiki/Surface-moun
 
 
 ## Can you skip components?
-Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :) You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on the PCB for the I2C bus since it uses the resistors on the external boards.
+Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :) You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on the PCB for the I2C bus since it uses the resistors of the external boards.
 
 
 # Bill of Materials (BOM)
@@ -121,21 +121,21 @@ U4 | [BME280 breakout board](https://www.aliexpress.com/item/4000166540445.html?
 U5 | [MH-Z19B Sensor](https://www.aliexpress.com/item/32860834286.html?spm=a2g0s.9042311.0.0.27424c4dEmysvU) | 1
 U6 | [SGP30 breakout board](https://www.aliexpress.com/item/4000004614708.html?spm=a2g0o.productlist.0.0.688164abtt6ZRA&algo_pvid=7f813f70-3c1d-42ee-b6cf-9bf501c47314&algo_expid=7f813f70-3c1d-42ee-b6cf-9bf501c47314-1&btsid=3f683b7d-631a-4373-b0a1-f574cd317549&ws_ab_test=searchweb0_0,searchweb201602_9,searchweb201603_55) | 1
 U7 | [TLS2561 light sensor](https://www.aliexpress.com/item/33056165996.html?spm=a2g0s.9042311.0.0.15314c4draqb6x) | 1
-C1-C4 | [0.1 uF Capacitor_SMD:C_0805_2012Metric](https://bg.farnell.com/wurth-elektronik/885012207016/cap-0-1-f-10v-10-x7r-0805/dp/2534051?st=smd%20capacitors) | 4
+C1-C4 | [0.1 uF SMD Capacitor](https://bg.farnell.com/wurth-elektronik/885012207016/cap-0-1-f-10v-10-x7r-0805/dp/2534051?st=smd%20capacitors) | 4
 D1-D3 | [Neopixel 5050 LED](https://www.aliexpress.com/item/4000750610574.html?spm=a2g0o.productlist.0.0.55a96722mpqDCp&algo_pvid=4be2d94a-875a-4e56-af12-1f6a3dcdf49f&algo_expid=4be2d94a-875a-4e56-af12-1f6a3dcdf49f-5&btsid=0bb0623416009856118282154ebe61&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) | 3
 | SW1 | [Tactile Switch B3S-1000](https://uk.farnell.com/omron/b3s-1000/switch-spno-0-05a-24v-smd/dp/177807) | 1 |
 | SW2 | [Tactile Switch B3U-1000P](https://bg.farnell.com/omron/b3u-1000p/switch-spst-no-0-05a-12v-smd/dp/1333652?st=B3U-1000P) | 1
 | | [PCB Receptacle, 1.27 mm, 10 Contacts](https://bg.farnell.com/amphenol-icc-fci/20021311-00010t4lf/receptacle-vert-1-27mm-tht-10way/dp/1865313) | 1 | This PCB Receptacle is for connecting PMS7003 dust sensor. Keep in mind these sensors come with such connector included but it's slightly taller and makes a gap of about half mm between sensor and PCB which is not ok.
 | | [SMD PCB Receptacle 8 pins](https://uk.farnell.com/samtec/ssm-108-l-sv/receptacle-2-54mm-vert-8way/dp/1668259?st=ssm-108-l-sv%20pcb%20receptacle) | 3 | two are needed for the MCU board, 3rd you can skip. It's for extra pins on the PCB but with ESP32 MCU not needed so much as extra headers can be soldered directly
 | | [PCB Receptacle 4 pin](https://uk.farnell.com/samtec/bcs-104-l-s-te/receptacle-2-54mm-vert-4way/dp/1667470?ost=bcs-104-l-s-te) | 4 | four is needed if all sensors are installed
-| | [OLED 63x48 shield](https://www.aliexpress.com/item/32981156326.html?spm=a2g0s.9042311.0.0.27424c4dO21RuC) | 1 | not required, only if you want an extra display on top of the 
+| | [OLED 63x48 shield](https://www.aliexpress.com/item/32981156326.html?spm=a2g0s.9042311.0.0.27424c4dO21RuC) | 1 | not required, only if you want an extra display on top of the MCU board
 | | Holder case | 1 | it's not required to have it but it makes the device completed
 
 # Firmware
-Firmware is created with [ESPHome](https://esphome.io/index.html). The binary file, configuration and instructions are located in firmware folder.
+Firmware is created with [ESPHome](https://esphome.io/index.html). The binary file, configuration and instructions are located in [firmware folder](firmware/).
 
 # Schematic
-Find all KiCad project in kicad folder with schematic, PCB design file, 3D models, etc. In schematic U1 (microcontroller board) is based on ESP8266 version (original Wemos D1 mini).
+Find all KiCad project in [kicad folder](kicad/) with schematic, PCB design file, 3D models, etc. In schematic U1 (microcontroller board) is based on ESP8266 version (original Wemos D1 mini).
 ![](images/schematic.png)
 
 # Soldering tips
@@ -160,8 +160,9 @@ CO2 ----> Humidity ----> PM2.5 ----> TVOC ----> PM2.5 ----> PM2.5 MIN ----> (bot
 ```
 - Press and hold the button from **2 to 5 sec**: On the display you see `LEDs status: OFF`. This means the status LEDs will be tuned off. Do the same to toggle back to `LEDs status: ON`. This setting is saved in the non volatile memory, so it will keep it's setting even if the MCU is restarted. 
 - Press and hold the button from **5 to 10 sec**: On the display you see `Night dim: OFF`. This means the LEDs and displays will not be turned off if ambient light fall under 2 lux. Do the same to toggle back to `Night dim: ON`. This setting is saved in the non volatile memory, so it will keep it's setting even if the MCU is restarted. 
-- Press and hold from **10 to 25 sec**: On the display you see `MIN-MAX Reset!`. It reset the minimum and maximum values of temperature, PM2.5 and CO2 on screen 6. Please note these resets each time the device is restarted. Keep in mind that 1.5 min after boot and reset, values of CO2 and temperature might not be correct.
-- Press and hold from **15 to 20 sec**: On the display for 20 sec it will show the following data:
+- Press and hold from **10 to 15 sec**: On the display you see `MIN-MAX Reset!`. It reset the minimum and maximum values of temperature, PM2.5 and CO2 on screen 6. Please note these resets each time the device is restarted. Keep in mind that 1.5 min after boot and reset, values of CO2 and temperature might not be correct.
+- Press and hold from **15 to 20 sec**: It will increase brightness correction with +5%. When it reached +40% another press and hold will make it 0% again. 
+- Press and hold from **20 to 30 sec**: On the display for 20 sec it will show the following data:
 ```
 YAML ver: (shows version of the esphome yaml config)
 ESPHome ver: (ESPHome version which build the firmware)
@@ -170,9 +171,9 @@ Connected to: (SSID of the wifi, if connected)
 LED brightness: (brigtness correction of the LEDs)
 ```
 ### LED Brightness control and correction
-Led brightness is controlled periodically (each 3 sec), proportional of the ambient light measured by the TLS2561 sensor. If there is no ambient light sensor installed LEDs are constant at 25%, but auto turn off will also not work. Logic of this simple auto control is configured in this code section.
+Led brightness is controlled periodically (each 3 sec), proportional of the ambient light measured by the TLS2561 sensor. If there is no ambient light sensor installed LEDs are constant at 25%, but auto turn off will also not work. Logic of this simple auto control is configured in [this code](firmware/includes/brightness.yaml).
 
-Also by default setting of these LEDs are to begin from 11% brightness. If it's bellow 11% they are turned off. As mentioned in the LED description setting these Chinese LEDs comes with different intensity and the ones listed in Bill of Materials section are too weak at the lowest setting. That's why I added brightness correction setting which can go from 0% to +40% in 5% step. This setting is done by connecting pin D8 of the J1 pin header to GND. Each time you connect D8 to GND it steps up with 5% until it reaches +40% and then goes back to 0% (no correction). This setting is saved in the non volatile memory of the MCU and it does not have to be configured wit5h each reset. Alternatively if the device is added in Home Assistant, you will see a template switch called `brightness_correction`, which is doing exactly the same thing as connecting.
+Also by default setting of these LEDs are to begin from 11% brightness. If it's bellow 11% they are turned off. As mentioned in the LED description setting these Chinese LEDs comes with different intensity and the ones listed in Bill of Materials section are too weak at the lowest setting. That's why I added brightness correction setting which can go from 0% to +40% in 5% step. This setting is done by connecting pin D8 of the J1 pin header to GND. Each time you connect D8 to GND it steps up with 5% until it reaches +40% and then goes back to 0% (no correction). The same can be done with press and hold the multi function button from 15 to 20 sec (explained above). This setting is saved in the non volatile memory of the MCU and it does not have to be configured after each reset. Alternatively if the device is added in Home Assistant, you will see a template switch called `brightness_correction`, which is doing exactly the same thing as the button on pin.
 
 
 # FAQ
@@ -193,7 +194,7 @@ It's explained in [ESPHome manual](https://esphome.io/components/sensor/sgp30.ht
 
 #### *How to connect to WiFi?*
 
-After 1 minute of unsuccessful WiFi connection attempts, the microcontroller will start a WiFi hotspot with name `iaq_device` and password `12345678`. When you connect to this fallback hatspot, the web interface should open automatically (see also login to network notifications). If that does not work, you can also navigate to http://192.168.4.1/ manually in your browser. Then type name and password of your local wifi hotspot, click save and MCU will restart and try to connect to the provided network. Additionally from this captive portal you can upload a new firmware.
+After 1 minute of unsuccessful WiFi connection attempts, the microcontroller will start a WiFi hotspot with name `iaq_device` and password `12345678`. When you connect to this fallback hotspot, the web interface should open automatically (see also login to network notifications). If that does not work, you can also navigate to http://192.168.4.1/ manually in your browser. Then type name and password of your local wifi hotspot, click save and MCU will restart and try to connect to the provided network. Additionally from this captive portal you can upload a new firmware.
 
 #### *How to add it in Home Assistant?*
 
