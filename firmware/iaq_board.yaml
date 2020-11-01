@@ -16,6 +16,10 @@ esphome:
           brightness: 0.25
           state: on
       - light.control:
+          id: led2
+          brightness: 0.25
+          state: on
+      - light.control:
           id: led3
           brightness: 0.25
           state: on
@@ -64,7 +68,7 @@ api:
 ota:
 
 substitutions:
-  yaml_version: "1.1.0"
+  yaml_version: "1.1.1"
 
 globals:
   - id: button_mode
@@ -152,7 +156,7 @@ binary_sensor:
         max_length: 500ms
         then:
           - lambda: |-
-              if (id(button_mode) < 7) { id(button_mode) += 1; }
+              if (id(button_mode) < 8) { id(button_mode) += 1; }
               else { id(button_mode) = 1; }
       - min_length: 2s
         max_length: 5s
@@ -419,6 +423,125 @@ sensor:
       name: Uptime
       id: utime
       
+    - platform: template
+      name: "PM2.5 24h average"
+      id: pm2_5_avg
+      icon: mdi:chemical-weapon
+      unit_of_measurement: µg/m³
+      lambda: |-
+        return id(pm2_5).state;
+      update_interval: 60s
+      filters:
+        - sliding_window_moving_average:
+            window_size: 1440
+            send_every: 1
+      on_value:
+        - if:
+            condition:
+              sensor.in_range:
+                id: pm2_5_avg
+                below: 10
+            then: 
+              - light.control:
+                  id: led2
+                  red: 0
+                  green: 1
+                  blue: 0
+              - text_sensor.template.publish:
+                  id: aqi
+                  state: "Good"
+        - if:
+            condition:
+              sensor.in_range:
+                id: pm2_5_avg
+                above: 10
+                below: 20
+            then: 
+              - light.control:
+                  id: led2
+                  red: 0
+                  green: 1
+                  blue: 1
+              - text_sensor.template.publish:
+                  id: aqi
+                  state: "Fair"
+        - if:
+            condition:
+              sensor.in_range:
+                id: pm2_5_avg
+                above: 20
+                below: 25
+            then: 
+              - light.control:
+                  id: led2
+                  red: 1
+                  green: 1
+                  blue: 0
+              - text_sensor.template.publish:
+                  id: aqi
+                  state: "Moderate"                  
+        - if:
+            condition:
+              sensor.in_range:
+                id: pm2_5_avg
+                above: 25
+                below: 50
+            then: 
+              - light.control:
+                  id: led2
+                  red: 1
+                  green: 0
+                  blue: 1
+              - text_sensor.template.publish:
+                  id: aqi
+                  state: "Poor"                  
+        - if:
+            condition:
+              sensor.in_range:
+                id: pm2_5_avg
+                above: 50
+                below: 75
+            then: 
+              - light.control:
+                  id: led2
+                  red: 1
+                  green: 0
+                  blue: 0
+              - text_sensor.template.publish:
+                  id: aqi
+                  state: "Very Poor"                  
+        - if:
+            condition:
+              sensor.in_range:
+                id: pm2_5_avg
+                above: 75
+            then: 
+              - light.control:
+                  id: led2
+                  red: 1
+                  green: 0
+                  blue: 0
+              - text_sensor.template.publish:
+                  id: aqi
+                  state: "Extremely Poor"                      
+
+# This is a "helper" template sensor which is doing 30 sec moving average of PM2.5
+# I use it for sensing in automations controlling purifiers (with Home Assistant), 
+# in order to remove the outlier values and making the control more smooth
+    - platform: template
+      name: "PM2.5 median"
+      id: pm2_5_median
+      icon: mdi:chemical-weapon
+      unit_of_measurement: µg/m³
+      lambda: |-
+        return id(pm2_5).state;
+      update_interval: 1s
+      filters:
+        - median:
+            window_size: 30
+            send_every: 30
+            send_first_at: 15
+
 text_sensor:
   - platform: wifi_info
     ip_address:
@@ -427,6 +550,11 @@ text_sensor:
     ssid:
       name: Connected SSID
       id: ssid
+      
+  - platform: template
+    name: "Air Quality Index (AQI)"
+    id: aqi
+    icon: mdi:air-filter
       
 light:
   - platform: partition
@@ -504,40 +632,49 @@ display:
     rotation: 180
     id: display1
     lambda: |-
-      if (id(button_mode) == 6 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
+      if (id(button_mode) == 7 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
         it.printf(0, 10, id(arial), "T: %.1f", id(temp_min));
         it.printf(0, 30, id(arial), "P2: %.0f", id(pm_min));
         it.printf(0, 50, id(arial), "C: %.0f", id(co_min));
         it.printf(70, 10, id(arial), "T: %.1f", id(temp_max));
         it.printf(70, 30, id(arial), "P2: %.0f", id(pm_max));
         it.printf(70, 50, id(arial), "C: %.0f", id(co_max));
-      } else if (id(button_mode) == 5 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
+        it.line(58, 0, 58, 64);
+      } else if (id(button_mode) == 6 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
         it.printf(0, 10, id(arial), "P1: %.0f", id(pm1).state);
         it.printf(0, 30, id(arial), "P2: %.0f", id(pm2_5).state);
         it.printf(0, 50, id(arial), "P10: %.0f", id(pm10).state);
         it.printf(70, 10, id(arial), "T: %.1f", id(temp).state);
         it.printf(70, 30, id(arial), "H: %.0f", id(hum).state);
         it.printf(70, 50, id(arial), "C: %.0f", id(co2).state);
+        it.line(65, 0, 65, 64);
       } else if (id(button_mode) == 1 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
           it.print(0, 8, id(arial), "PM2.5:   ");
           it.printf(50, 15, id(arial30), "%.0f", id(pm2_5).state);
           it.print(0, 35, id(arial), "CO2:   ");
           it.printf(50, 42, id(arial30), "%.0f", id(co2).state);
-      } else if  (id(button_mode) == 4 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
+      } else if  (id(button_mode) == 5 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
           it.printf(0, 10, id(arial), "Light: %.0f lux", id(light_sens).state);
           it.printf(0, 30, id(arial), "TVOC: %.0f ppb", id(tvoc).state);
           it.printf(0, 50, id(arial), "eCO2: %.0f ppm", id(eco2).state);
-      } else if (id(button_mode) == 3 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
+      } else if (id(button_mode) == 4 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
           it.printf(0, 10, id(arial), "PM1: %.0f ugm3", id(pm1).state);
           it.printf(0, 30, id(arial), "P2.5: %.0f ugm3", id(pm2_5).state);
           it.printf(0, 50, id(arial), "PM10: %.0f ugm3", id(pm10).state);
-      } else if (id(button_mode) == 2 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
+      } else if (id(button_mode) == 3 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
           it.printf(0, 10, id(arial), "Temp: %.1f °C", id(temp).state);
           it.printf(0, 30, id(arial), "Humidity: %.0f %%", id(hum).state);
           it.printf(0, 50, id(arial), "Pressure: %.0f hPa", id(press).state);
+      } else if (id(button_mode) == 2 && !id(version) && !id(led_status_display) && !id(night_mode_display) && !id(min_max_zero) && id(display_on)) {
+          it.print(2, 0, id(arial), " Air Quality Index");
+          it.line(0, 18, 128, 18);
+          std::string aqi_ = id(aqi).state;
+          it.printf(30, 32, id(arial), "%s", aqi_.c_str());
+          it.printf(30, 52, id(arial), "%.0f ugm3", id(pm2_5_avg).state);
       } else if (id(version)) {
           it.print(0, 0, id(arial10), "YAML ver: $yaml_version");
-          it.printf(0, 17, id(arial10), "ESPHome ver: %s", ESPHOME_VERSION);
+          it.line(0, 12, 128, 12);
+          it.printf(5, 17, id(arial10), "ESPHome ver: %s", ESPHOME_VERSION);
           std::string ip_ = id(ip).state;
           it.printf(0, 30, id(arial10), "IP: %s", ip_.c_str());
           std::string ssid_ = id(ssid).state;
@@ -558,7 +695,7 @@ display:
     rotation: 270
     id: display2
     lambda: |-
-      if (id(display_on) && id(button_mode) < 7) {
+      if (id(display_on) && id(button_mode) < 8) {
           it.printf(0, 10, id(arial), "%.1f C", id(temp).state);
           it.printf(0, 30, id(arial), "%.0f %%", id(hum).state);
           it.printf(0, 50, id(arial), "%.0f h", id(press).state);
