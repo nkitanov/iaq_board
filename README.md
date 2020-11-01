@@ -1,5 +1,35 @@
 ![](images/iaq_device_3d.png)
 
+**Table of Contents**
+- [IAQ (Indoor Air Quality) Board](#iaq--indoor-air-quality--board)
+  * [What exactly is this thing?](#what-exactly-is-this-thing-)
+  * [Who can build it?](#who-can-build-it-)
+  * [What about ordering a device?](#what-about-ordering-a-device-)
+- [Components Details](#components-details)
+  * [1. PCB](#1-pcb)
+  * [2. Holder case](#2-holder-case)
+  * [3. Microcontroller Board](#3-microcontroller-board)
+  * [4. Dust Sensor](#4-dust-sensor)
+  * [5. CO2 sensor](#5-co2-sensor)
+  * [6. Temperature/Humidity/Pressure sensor](#6-temperature-humidity-pressure-sensor)
+  * [7. Ambient Light Sensor](#7-ambient-light-sensor)
+  * [8. LEDs](#8-leds)
+  * [9. Displays](#9-displays)
+  * [10. Volatile Organic Compound sensor](#10-volatile-organic-compound-sensor)
+  * [11. Other electrical components](#11-other-electrical-components)
+  * [Can you skip components?](#can-you-skip-components-)
+- [Bill of Materials (BOM)](#bill-of-materials--bom-)
+- [Firmware](#firmware)
+- [Schematic](#schematic)
+- [Soldering tips](#soldering-tips)
+- [User manual](#user-manual)
+    + [Multi function button](#multi-function-button)
+    + [LED Brightness control and correction](#led-brightness-control-and-correction)
+- [FAQ](#faq)
+- [More Tech Details](#more-tech-details)
+- [Known issues](#known-issues)
+- [License](#license)
+
 # IAQ (Indoor Air Quality) Board 
 IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap, simple and capable**. After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. 
 
