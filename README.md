@@ -281,3 +281,5 @@ These are valid for ESP8266 MCU (including the previous issues), not recommended
 
 # License 
 The device is "open source hardware". Anyone can study, modify, distribute, make, and sell the design or hardware based on that design.
+
+![](https://komarev.com/ghpvc/?username=nkitanov&label=VIEWS)
