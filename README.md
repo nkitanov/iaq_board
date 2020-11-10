@@ -1,6 +1,9 @@
 ![](images/iaq_device_3d.png)
 
 # IAQ (Indoor Air Quality) Board 
+IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap, simple and capable**. After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. 
+
+**And here is my device. I am publishing all the details and documentation under 'open source hardware' license, so everyone can build it and adapt it without any restrictions.**
 
 **Table of Contents**
    * [IAQ (Indoor Air Quality) Board](#iaq-indoor-air-quality-board)
@@ -40,15 +43,11 @@
    * [Known issues](#known-issues)
    * [License](#license)
 
-IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap, simple and capable**. After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. 
-
-**And here is my device. I am publishing all the details and documentation under 'open source hardware' license, so everyone can build it and adapt it without any restrictions.**
-
 ## What exactly is this thing?
-The device is based on widely available and cheap essential components ([MCU](https://en.wikipedia.org/wiki/Microcontroller) and sensors). The core component is a simple [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) (printed circuit board) that's why I called it **IAQ Board**. The board integrates all the components in a very small footprint (like cigarette box). All parts are soldered on it and everyone can assemble it with some  soldering skills. The total price if you build it yourself is about 50-60 EUR. I also made simplistic holder for 3D print (6-7 EUR is you don't have a 3D printer). For these amount of money you get the following air parameters measured adequately (you might not install all sensors if you want to save money): 
+The device is based on widely available and cheap essential components ([MCU](https://en.wikipedia.org/wiki/Microcontroller) and sensors). The core component is a simple [PCB](https://en.wikipedia.org/wiki/Printed_circuit_board) (printed circuit board) that's why I called it **IAQ Board**. The board integrates all the components in a very small footprint (size of a cigarette box). All parts are soldered on it and everyone can assemble it with basic soldering skills. The total price if you build it yourself is about 50-60 EUR. I also made simplistic holder for 3D print (6-7 EUR is you don't have a 3D printer). For these amount of money you get the following air parameters measured adequately (you might not install all sensors if you want to save money): 
 - [X] ***Temperature / Humidity / Pressure***
 - [X] [***Air particles PM1, PM2.5, PM10***](https://en.wikipedia.org/wiki/Particulates)
-- [X] [***real Carbon Dioxide with NDIR sensor***](https://en.wikipedia.org/wiki/Indoor_air_quality#Carbon_dioxide)
+- [X] [***Carbon Dioxide with NDIR sensor***](https://en.wikipedia.org/wiki/Indoor_air_quality#Carbon_dioxide)
 - [X] [***Air Quality Index by EPA, based on 24h average PM2.5 particles***](https://airindex.eea.europa.eu/Map/AQI/Viewer/)
 - [X] [***Ambient light***](https://en.wikipedia.org/wiki/Illuminance)
 - [X] [***Total VOC (volatile organic compound)***](https://en.wikipedia.org/wiki/Volatile_organic_compound)
@@ -64,17 +63,18 @@ The device is based on widely available and cheap essential components ([MCU](ht
 - [X] ***WiFi access to the device with http server and [REST API](https://esphome.io/web-api/index.html) and [esphome native API](https://esphome.io/components/api.html)  to read the sensor data***
 
 Here is a video with all you need to know:
+
 [![Click to see the video](images/youtube.jpg)](https://www.youtube.com/watch?v=X75OGs2TTT8)
 
 ## Who can build it?
 The device is just a simple PCB board and almost everyone with some soldering skills can assemble it in a few steps:
-1. [Download the PCB files](https://github.com/nkitanov/iaq_board/tree/master/kicad) and print the PCB somewhere like https://jlcpcb.com/
+1. [Download the PCB files](kicad/) and print the PCB somewhere like https://jlcpcb.com/
 2. Buy some components (listed in the bill of materials section) from Aliexpress or any other source.
 3. Solder everything on the board. With the exception of the ambient light sensor, all the rest is pretty easy with general soldering skills. Soldering light sensor can be done with regular soldering iron, but because of the small size of the IC, it's easier if you have heat gun or SMD reflow oven/plate.
 4. Flash the microcontroller with the esphome firmware [following the manual](firmware/). You can write your own firmware if you have the skills. :) 
 5. Print the holder case on 3D printer if you wish. I have some sensors without it and they are perfectly fine, so it's up to you.
 
-If you have experience with electronics and microcontrollers just check the schematics and make whatever you wish - build your own firmware, do another PCB, connect external sensors, don't use it at all because you can make it better :). The device is quite simple for embedded electronics enthusiasts anyway...
+If you have experience with electronics and microcontrollers just check the [schematics](kicad/) and make whatever you wish - build your own firmware, do another PCB, connect external sensors, don't use it at all because you can make it better :). The device is quite simple for embedded electronics enthusiasts anyway...
 
 ## What about ordering a device?
 I made this device for me and then decided to share it. I think a lot of people might be interested to have such air quality sensor. I did not have intension to make money from it, that's why it's "open hardware" and I publish all of the information, so everyone can build it. 
@@ -89,8 +89,8 @@ The device with AAA battery size comparison:
 ![](images/pcb.png)
 ![](images/pcb.jpg)
 
-The PCB (printed circuit board) is very simple and compact. It's 70x43mm (photos above are showing it larger than the actual size). It just connects a few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Most of the parts are surface mounted which makes the soldering, just a bit more complicated, but still not a big deal. And of course it could be integrated even more by soldering all individual components on the PCB but then it's not really a hobby project anymore and much more difficult to build it.
-It's designed on [KiCad](https://kicad-pcb.org/) and in the kicad folder you can find full KiCad project, PCB gerber files, etc.
+The PCB (printed circuit board) is very simple and compact. It's 70x43mm (photos above are showing it larger than the actual size). It just connects a few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Most of the parts are surface mounted which makes the soldering just a bit more complicated, but still not a big deal. And of course it could be integrated even more by soldering all individual components on the PCB but then it's not really a hobby project anymore and much more difficult to build it.
+It's designed on [KiCad](https://kicad-pcb.org/) and in the [kicad folder](kicad/) you can find full KiCad project, PCB gerber files, etc.
 ## 2. Holder case
 ![](images/stand.gif)
 
@@ -100,7 +100,7 @@ Taking into account this, I designed a simple holder case for "sliding" the PCB 
 ## 3. Microcontroller Board
 ![](images/esp32.jpg)
 
-Initially I developed the board with using the most popular WiFi enabled MCU [ESP8266](https://en.wikipedia.org/wiki/ESP8266) mounted on the cheap and small [Wemos D1 Mini board](https://docs.wemos.cc/en/latest/d1/d1_mini.html). However this MCU have some limitations described in the tech details, so I changed it with the same size board compatible with Wemos D1 Mini, but running the newer much more powerful MCU of the same company - [ESP32](https://en.wikipedia.org/wiki/ESP32). In that way the device is quite stable, can run http server and since the board is having the same layout, on top of the D1 Mini ESP32 board you can connect extra display designed for esp8266 very easy. PCB is compatible with both D1 Mini ESP8266 or ESP32, even the labels are the same like on the older D1 board. However **I do not recommend to use D1 mini with ESP8266!**. Also if I have to build next version of the PCB (I still have some 25 pcs), I will change the pins of one of the UART sensors.
+Initially I developed the board with using the most popular WiFi enabled MCU [ESP8266](https://en.wikipedia.org/wiki/ESP8266) mounted on the cheap and small [Wemos D1 Mini board](https://docs.wemos.cc/en/latest/d1/d1_mini.html). However this MCU have some limitations described in the [tech details](#more-tech-details), so I changed it with the same size board compatible with Wemos D1 Mini, but running the newer much more powerful MCU of the same company - [ESP32](https://en.wikipedia.org/wiki/ESP32). In that way the device is quite stable, can run web server and since the board is having the same layout, on top of the D1 Mini ESP32 board you can connect extra display designed for d1 mini very easy. PCB is compatible with both D1 Mini ESP8266 or ESP32, even the labels are the same like on the older D1 board. However **I do not recommend to use D1 mini with ESP8266!** Also if I have to build next version of the PCB (I still have some 25 pcs), I will change the pins of one of the dust sensors.
 
 These small size MCU board are pretty nice, they are tiny, have USB connector, onboard power supply and USB converter for programming or serial output. And you are powering the whole device just with a mini USB cable.
 ## 4. Dust Sensor
@@ -114,7 +114,7 @@ Carbon dioxide sensor is the Chinese [Winsen MH-Z19B](https://www.winsen-sensor.
 ## 6. Temperature/Humidity/Pressure sensor
 ![](images/bme280.jpg)
 
-This sensor is the very popular [Bosch BME280](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/), mounted on 3.3V only breakout board from China. There are also smaller [breakout boards](http://www.cncroutersource.com/breakout-boards.html) from China working both on 5V and 3.3V, but these have voltage regulator which can theoretically warm the board and change the temperature reading. That's why I use the boards with 3.3V only.
+This sensor is the popular [Bosch BME280](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/), mounted on 3.3V only breakout board from China. There are also smaller [breakout boards](http://www.cncroutersource.com/breakout-boards.html) from China working both on 5V and 3.3V, but these have voltage regulator which can theoretically warm the board and change the temperature reading. That's why I use the boards with 3.3V only.
 ## 7. Ambient Light Sensor
 ![](images/tsl2561.jpg)
 
@@ -122,7 +122,8 @@ The light sensor is [TSL 2561](https://ams.com/tsl2561) and it's the only sensor
 ## 8. LEDs
 
 ![](images/leds.jpg)
-The device have three [Neopixel 5050](https://www.digikey.com/catalog/en/partgroup/neopixel-rgb-5050-led-with-integrated-driver-chip-100-pack/70939) RGB multicolor LEDs. These LEDs are mostly found in the colorful LED strips and are controlled over a single wire. In my esphome based firmware left LED color is indicating the level of PM2.5 and change the colors depending on the value. Middle LED2 indicates Air Quality Index based on PM2.5 only and the right one (LED3) indicates CO2 value. Keep in mind PM2.5 values are close to [EEA](https://www.eea.europa.eu/) levels (especially AQI). Some other devices like Xiaomi Air Purifiers have some very high levels on their displays and logic - it's green up to 70 microns which is already considered unhealthy both by EEA and EPA. In China "healthy" is considered bellow 50 microns. That's why AUTO mode of these Chinese devices [works so bad](https://smartairfilters.com/en/blog/xiaomi-auto-mode-leaves-air-unsafe-86-hours/). I try to keep internally PM2.5 around 5-10 microns. I normally control my purifiers by Home Assistant and do not rely on their auto logic. If you have Xiaomi Purifier it can still show green, and the iaq device shows stable red, but it is correct according to the EU regulations.
+
+The device have three [Neopixel 5050](https://www.digikey.com/catalog/en/partgroup/neopixel-rgb-5050-led-with-integrated-driver-chip-100-pack/70939) RGB multicolor LEDs. These LEDs are mostly found in the colorful LED strips and are controlled over a single wire. In my esphome based firmware left LED color is indicating the level of PM2.5 and change the colors depending on the value. Middle (LED2) indicates Air Quality Index based on PM2.5 only and the right one (LED3) indicates CO2 value. Keep in mind PM2.5 values are close to [EEA](https://www.eea.europa.eu/) levels (especially AQI). Some other devices like Xiaomi Air Purifiers have some very high levels on their displays and logic - it's green up to 70 microns which is already considered unhealthy both by EEA and EPA. In China "healthy" is considered bellow 50 microns. That's why AUTO mode of these Chinese devices [works so bad](https://smartairfilters.com/en/blog/xiaomi-auto-mode-leaves-air-unsafe-86-hours/). I try to keep indoor PM2.5 around 5-10 microns. I normally control my purifiers by Home Assistant and do not rely on their auto logic. If you have Xiaomi Purifier it can still show green, and the iaq device shows stable red, but it is correct according to the EU regulations.
 
 **Colors of the LEDs depends on this table:**
 PM2.5 value (um/m3)<br>LED 1 | [AQI by EEA (Air Quality Index for PM2.5 24h average)](https://airindex.eea.europa.eu/Map/AQI/Viewer/)<br>LED 2 | CO2 value (ppm)<br>LED 3 | Color |  R  |  G  |  B
@@ -148,7 +149,7 @@ There are also four [surface mounted](https://en.wikipedia.org/wiki/Surface-moun
 
 
 ## Can you skip components?
-Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :) You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on the PCB for the I2C bus since it uses the resistors of the external boards.
+Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :) You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on the PCB for the I2C bus since it uses the resistors of the external breakout boards.
 
 
 # Bill of Materials (BOM)
@@ -192,7 +193,7 @@ The only more difficult component to solder is the ambient light sensor which is
 It's quite simple, the device have only one "multi functional" button SW1, and one micro button SW2 for calibration of the CO2 sensor.
 
 ### Multi function button
-- Short press "rotates" the data on the right bigger display. By default it starts showing only PM2.5 and CO2 with larger fonts as these are the most important air quality parameters. This is also the default "screen" and every time the device is restarted it will show it. The display is quite small (128x64 pixels) so some of the text is shortened like P1 (for PM1), C (for CO2), etc. Each short press of the button rotates this sequence:
+- Short press "rotates" the data displayed on the right bigger display. By default it starts showing only PM2.5 and CO2 with larger fonts as these are the most important air quality parameters. This is also the default "screen" and every time the device is restarted it will show that screen. The display is quite small (128x64 pixels) so some of the text is shortened like P1 (for PM1), C (for CO2), etc. Each short press of the button rotates this sequence:
 ```
 DEFAULT==================================================================MIN/MAX===============
 PM2.5      AQI        Temperature    PM1         Amb.Light  PM1         Temp. MIN        Displays OFF
@@ -207,7 +208,7 @@ CO2 ----> Index ----> Humidity ----> PM2.5 ----> TVOC ----> PM2.5 ----> PM2.5 MI
 - Press and hold the button from **2 to 5 sec**: On the display you see `LEDs status: OFF`. This means the status LEDs will be tuned off. Do the same to toggle back to `LEDs status: ON`. This setting is saved in the non volatile memory, so it will keep it's setting even if the MCU is restarted. 
 - Press and hold the button from **5 to 10 sec**: On the display you see `Night dim: OFF`. This means the LEDs and displays will not be turned off if ambient light fall under 2 lux. Do the same to toggle back to `Night dim: ON`. This setting is saved in the non volatile memory, so it will keep it's setting even if the MCU is restarted. 
 - Press and hold from **10 to 15 sec**: On the display you see `MIN-MAX Reset!`. It reset the minimum and maximum values of temperature, PM2.5 and CO2 on screen 6. Please note these resets each time the device is restarted. Keep in mind that 1.5 min after boot and reset, values of CO2 and temperature might not be correct.
-- Press and hold from **15 to 20 sec**: It will increase brightness correction with +5%. When it reaches +40% another press and hold will make it 0% again. 
+- Press and hold from **15 to 20 sec**: It will increase LED brightness correction with +5%. When it reaches +40% another press and hold will make it 0% again. 
 - Press and hold from **20 to 30 sec**: On the display for 20 sec it will show the following diagnostic data:
 ```
 YAML ver: (shows version of the esphome yaml config)
@@ -228,7 +229,7 @@ Also by default setting of these LEDs are to begin from 11% brightness. If it's 
 The device is powered from regular micro USB cable with 5V and consumes between 100-250 mA. You can power it with USB battery pack but not for too long (for example 4000 mAh battery will be depleted in about 20h). If you need to operate it from a battery, firmware have to enter the MCU in a [deep sleep](https://esphome.io/components/deep_sleep.html) mode periodically. You have to build your own firmware. I do not run any of my devices in deep sleep as I do not see a reason for that.
 #### *Can it be installed outdoors?*
 
-The device is not waterproof. It can run outdoors if you install it in enclosure which is protecting it from water. It can handle high humidity maybe (never tested it).
+The device is not waterproof. It can run outdoors if you install it in enclosure which is protecting it from water. It can handle high humidity maybe (never tested it). However the main purpose of the device is to be an internal air quality monitor. Measuring CO2 and VOC outside does not makes too much sense, but it can be used for dust pollution monitoring.
 
 #### *How to calibrate MH-Z19B CO2 sensor?*
 
@@ -264,7 +265,7 @@ As I mentioned above the initial design was based on ESP8266 microcontroller. Be
 - In the description of [WeMos_D1_mini_ESP32](https://www.aliexpress.com/item/4000880936043.html?spm=a2g0o.productlist.0.0.f387754egZVnTc&algo_pvid=b105e43b-6669-40bc-99c4-cf22d026995d&algo_expid=b105e43b-6669-40bc-99c4-cf22d026995d-6&btsid=0bb0623616009843570355505e4ca0&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_) the pins for UART0 are crossed (TX is where RX is shown). It's easy to fix as you can select those pins but if you carefully check the pins you might wonder why is that.
 - If ESP8266 version is used there is no second dedicated hardware UART (we need two - one for dust sensor, and one for CO2 sensor). As a result the second one is "software" UART port, which uses [bit banging](https://en.wikipedia.org/wiki/Bit_banging). in combination with the WiFi activity it causes periodic WDT resets of the MCU - sometimes a few times for a few hours which is annoying. And this is one of reasons I use ESP32 now and do not recommend ESP8266.
 - on the PCB there are no pullup resistors on the I2C bus. All breakout boards have these pullup resistors, so even attaching only one is enough. However if we install only the ambient light sensor and nothing more, it won't work because there will be no pullups. Also if you add more i2c breakout boards keep an eye of the resistance as it will drop with each extra resistor like [described here](https://www.bluedot.space/tutorials/how-many-devices-can-you-connect-on-i2c-bus/).
-- ESP8266 is quite unstable if you try to use AP mode, also enabling http server is too much for this processor. That's why - don't use it, use only ESP32. :)
+- ESP8266 is quite unstable if you try to use AP mode, also enabling http server is too much for this processor. That's why - don't use it, use only ESP32. :smile:
 - JP1 solder jumper is for changing i2c slave address of the ambient light sensor. In the datasheet of the sensor are described the different configuration. The default address is when JP1 is not soldered.
 
 # Known issues
