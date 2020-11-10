@@ -1,36 +1,45 @@
 ![](images/iaq_device_3d.png)
 
-**Table of Contents**
-- [IAQ (Indoor Air Quality) Board](#iaq--indoor-air-quality--board)
-  * [What exactly is this thing?](#what-exactly-is-this-thing-)
-  * [Who can build it?](#who-can-build-it-)
-  * [What about ordering a device?](#what-about-ordering-a-device-)
-- [Components Details](#components-details)
-  * [1. PCB](#1-pcb)
-  * [2. Holder case](#2-holder-case)
-  * [3. Microcontroller Board](#3-microcontroller-board)
-  * [4. Dust Sensor](#4-dust-sensor)
-  * [5. CO2 sensor](#5-co2-sensor)
-  * [6. Temperature/Humidity/Pressure sensor](#6-temperature-humidity-pressure-sensor)
-  * [7. Ambient Light Sensor](#7-ambient-light-sensor)
-  * [8. LEDs](#8-leds)
-  * [9. Displays](#9-displays)
-  * [10. Volatile Organic Compound sensor](#10-volatile-organic-compound-sensor)
-  * [11. Other electrical components](#11-other-electrical-components)
-  * [Can you skip components?](#can-you-skip-components-)
-- [Bill of Materials (BOM)](#bill-of-materials--bom-)
-- [Firmware](#firmware)
-- [Schematic](#schematic)
-- [Soldering tips](#soldering-tips)
-- [User manual](#user-manual)
-    + [Multi function button](#multi-function-button)
-    + [LED Brightness control and correction](#led-brightness-control-and-correction)
-- [FAQ](#faq)
-- [More Tech Details](#more-tech-details)
-- [Known issues](#known-issues)
-- [License](#license)
-
 # IAQ (Indoor Air Quality) Board 
+
+**Table of Contents**
+   * [IAQ (Indoor Air Quality) Board](#iaq-indoor-air-quality-board)
+      * [What exactly is this thing?](#what-exactly-is-this-thing)
+      * [Who can build it?](#who-can-build-it)
+      * [What about ordering a device?](#what-about-ordering-a-device)
+   * [Components Details](#components-details)
+      * [1. PCB](#1-pcb)
+      * [2. Holder case](#2-holder-case)
+      * [3. Microcontroller Board](#3-microcontroller-board)
+      * [4. Dust Sensor](#4-dust-sensor)
+      * [5. CO2 sensor](#5-co2-sensor)
+      * [6. Temperature/Humidity/Pressure sensor](#6-temperaturehumiditypressure-sensor)
+      * [7. Ambient Light Sensor](#7-ambient-light-sensor)
+      * [8. LEDs](#8-leds)
+      * [9. Displays](#9-displays)
+      * [10. Volatile Organic Compound sensor](#10-volatile-organic-compound-sensor)
+      * [11. Other electrical components](#11-other-electrical-components)
+      * [Can you skip components?](#can-you-skip-components)
+   * [Bill of Materials (BOM)](#bill-of-materials-bom)
+   * [Firmware](#firmware)
+   * [Schematic](#schematic)
+   * [Soldering tips](#soldering-tips)
+   * [User manual](#user-manual)
+         * [Multi function button](#multi-function-button)
+         * [LED Brightness control and correction](#led-brightness-control-and-correction)
+   * [FAQ](#faq)
+            * [<em>Can I power it from a battery?</em>](#can-i-power-it-from-a-battery)
+            * [<em>Can it be installed outdoors?</em>](#can-it-be-installed-outdoors)
+            * [<em>How to calibrate MH-Z19B CO2 sensor?</em>](#how-to-calibrate-mh-z19b-co2-sensor)
+            * [<em>How to calibrate SGP30 VOC sensor?</em>](#how-to-calibrate-sgp30-voc-sensor)
+            * [<em>How to connect to WiFi?</em>](#how-to-connect-to-wifi)
+            * [<em>How to add it in Home Assistant?</em>](#how-to-add-it-in-home-assistant)
+            * [<em>What if some of the sensors/displays is disconnected while the device works?</em>](#what-if-some-of-the-sensorsdisplays-is-disconnected-while-the-device-works)
+         * [<em>What about short circuits of the exposed electronics?</em>](#what-about-short-circuits-of-the-exposed-electronics)
+   * [More Tech Details](#more-tech-details)
+   * [Known issues](#known-issues)
+   * [License](#license)
+
 IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap, simple and capable**. After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. 
 
 **And here is my device. I am publishing all the details and documentation under 'open source hardware' license, so everyone can build it and adapt it without any restrictions.**
@@ -54,7 +63,8 @@ The device is based on widely available and cheap essential components ([MCU](ht
 - [X] ***[firmware](https://en.wikipedia.org/wiki/Firmware) based on [ESPhome](https://esphome.io/), the device can be [directly added](https://esphome.io/components/api.html) in [Home Assistant](https://www.home-assistant.io/)***
 - [X] ***WiFi access to the device with http server and [REST API](https://esphome.io/web-api/index.html) and [esphome native API](https://esphome.io/components/api.html)  to read the sensor data***
 
-Here is a video with all you need to know: video..............
+Here is a video with all you need to know:
+[![Click to see the video](images/youtube.jpg)](https://www.youtube.com/watch?v=X75OGs2TTT8)
 
 ## Who can build it?
 The device is just a simple PCB board and almost everyone with some soldering skills can assemble it in a few steps:
@@ -110,16 +120,18 @@ This sensor is the very popular [Bosch BME280](https://www.bosch-sensortec.com/p
 
 The light sensor is [TSL 2561](https://ams.com/tsl2561) and it's the only sensor you need to solder directly on the board without a breakout board. I added this sensor not because I need to measure the ambient light but because I am a brightness freak, and I need the LEDs brightness to depend on the ambient light. Also wanted during the night when the lights are off the device to turn off the LEDs and displays automatically. You can also change the behavior of this brightness control and I spend some extra time developing the config only for the brightness features. :)
 ## 8. LEDs
-The device have three [Neopixel 5050](https://www.digikey.com/catalog/en/partgroup/neopixel-rgb-5050-led-with-integrated-driver-chip-100-pack/70939) RGB multicolor LEDs. These LEDs are mostly found in the colorful LED strips and are controlled over a single wire. In my esphome based firmware left LED color is indicating the level of PM2.5 and change the colors depending on the value. Middle LED2 indicates Air Quality Index and the right one (LED3) indicates CO2 value. Keep in mind PM2.5 values are close to [EEA](https://www.eea.europa.eu/) levels (especially AQI). Some other devices like Xiaomi Air Purifiers have some very high levels on their displays and logic - it's green up to 70 microns which is already considered unhealthy both by EEA and EPA. In China "healthy" is considered bellow 50 microns. That's why AUTO mode of these Chinese devices [works so bad](https://smartairfilters.com/en/blog/xiaomi-auto-mode-leaves-air-unsafe-86-hours/). I try to keep internally PM2.5 around 5-10 microns. I normally control my purifiers by Home Assistant and do not rely on their auto logic. If you have Xiaomi Purifier it can still show green, and the iaq device shows stable red, but it is correct according to the EU regulations.
+
+![](images/leds.jpg)
+The device have three [Neopixel 5050](https://www.digikey.com/catalog/en/partgroup/neopixel-rgb-5050-led-with-integrated-driver-chip-100-pack/70939) RGB multicolor LEDs. These LEDs are mostly found in the colorful LED strips and are controlled over a single wire. In my esphome based firmware left LED color is indicating the level of PM2.5 and change the colors depending on the value. Middle LED2 indicates Air Quality Index based on PM2.5 only and the right one (LED3) indicates CO2 value. Keep in mind PM2.5 values are close to [EEA](https://www.eea.europa.eu/) levels (especially AQI). Some other devices like Xiaomi Air Purifiers have some very high levels on their displays and logic - it's green up to 70 microns which is already considered unhealthy both by EEA and EPA. In China "healthy" is considered bellow 50 microns. That's why AUTO mode of these Chinese devices [works so bad](https://smartairfilters.com/en/blog/xiaomi-auto-mode-leaves-air-unsafe-86-hours/). I try to keep internally PM2.5 around 5-10 microns. I normally control my purifiers by Home Assistant and do not rely on their auto logic. If you have Xiaomi Purifier it can still show green, and the iaq device shows stable red, but it is correct according to the EU regulations.
 
 **Colors of the LEDs depends on this table:**
 PM2.5 value (um/m3)<br>LED 1 | [AQI by EEA (Air Quality Index for PM2.5 24h average)](https://airindex.eea.europa.eu/Map/AQI/Viewer/)<br>LED 2 | CO2 value (ppm)<br>LED 3 | Color |  R  |  G  |  B
 :-----------------: | :-------------: | :-------------: | :---: | :-: | :-: | :-: 
-< 10 | < 10 | < 700 | ![](https://img.shields.io/static/v1?label=&message=GREEN&color=green) | off | on | off 
-11 - 20 | 10 - 20 | 700 - 1000 | ![](https://img.shields.io/static/v1?label=&message=CYAN&color=cyan) | off | on | on 
-20 - 30 | 20 - 25 | 1000 - 1500 | ![](https://img.shields.io/static/v1?label=&message=YELLOW&color=yellow) | on | on | off 
-30 - 40 | 25 - 50 | 1500 - 2100 | ![](https://img.shields.io/static/v1?label=&message=MAGENTA&color=magenta) | on | off | on 
-\> 50 | > 50 | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | on 
+< 10 | < 10 (Good) | < 700 | ![](https://img.shields.io/static/v1?label=&message=GREEN&color=green) | off | on | off 
+11 - 20 | 10 - 20 (Fair) | 700 - 1000 | ![](https://img.shields.io/static/v1?label=&message=CYAN&color=cyan) | off | on | on 
+20 - 30 | 20 - 25 (Moderate) | 1000 - 1500 | ![](https://img.shields.io/static/v1?label=&message=YELLOW&color=yellow) | on | on | off 
+30 - 40 | 25 - 50 (Poor) | 1500 - 2100 | ![](https://img.shields.io/static/v1?label=&message=MAGENTA&color=magenta) | on | off | on 
+\> 50 | > 50 (Very Poor) | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | on 
 
 ## 9. Displays
 The main display is the popular SSD1306 128x64 OLED display. On the top of the MCU board you can install extra [OLED 63x48](https://docs.wemos.cc/en/latest/d1_mini_shiled/oled_0_66.html) shield from Lolin which shows temperature, humidity and air pressure only.
@@ -170,7 +182,7 @@ Find all KiCad project in [kicad folder](kicad/) with schematic, PCB design file
 ![](images/schematic.png)
 
 # Soldering tips
-You need basic soldering skills and a soldering iron with thin tip. Because most of the components are SMD, it's much easier to buy some [solder paste](https://en.wikipedia.org/wiki/Solder_paste) if you don't have. Most of the SMD components are quite large to solder easily with the iron, you can look in youtube, there are thousand of videos how to solder SMD components. Of course for some parts it's easier to use hotair rework station but not a requirement.
+You need basic soldering skills and a soldering iron with thin tip. Because most of the components are SMD, it's much easier to buy some [solder paste](https://en.wikipedia.org/wiki/Solder_paste) if you don't have. Most of the SMD components are quite large to solder easily with the iron, you [can look in youtube](https://www.google.com/search?q=solder+smd+components&source=lnms&tbm=vid&sa=X&ved=2ahUKEwien7K4zfbsAhX6BWMBHQMtDZAQ_AUoAnoECBMQBA&cshid=1604964375672299&biw=1600&bih=1097), there are thousand of videos how to solder SMD components. Of course for some parts it's easier to use hotair rework station but not a requirement.
 
 The only more difficult component to solder is the ambient light sensor which is quite small. I normally do these with a thin layer of solder paste and heatgun from bellow. However because of the footpint on the PCB is purposely made a bit bigger, I managed to solder it as well with a regular iron with a thin tip and solder paste. Also magnifying glasses will help.
 
