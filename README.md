@@ -71,10 +71,10 @@ The device is just a simple PCB board and almost everyone with some soldering sk
 1. [Download the PCB files](kicad/) and print the PCB somewhere like https://jlcpcb.com/
 2. Buy some components (listed in the bill of materials section) from Aliexpress or any other source.
 3. Solder everything on the board. With the exception of the ambient light sensor, all the rest is pretty easy with general soldering skills. Soldering light sensor can be done with regular soldering iron, but because of the small size of the IC, it's easier if you have heat gun or SMD reflow oven/plate.
-4. Flash the microcontroller with the esphome firmware [following the manual](firmware/). You can write your own firmware if you have the skills. :) 
+4. Flash the microcontroller with the esphome firmware [following the manual](firmware/). You can write your own firmware if you have the skills. :smile: 
 5. Print the holder case on 3D printer if you wish. I have some sensors without it and they are perfectly fine, so it's up to you.
 
-If you have experience with electronics and microcontrollers just check the [schematics](kicad/) and make whatever you wish - build your own firmware, do another PCB, connect external sensors, don't use it at all because you can make it better :). The device is quite simple for embedded electronics enthusiasts anyway...
+If you have experience with electronics and microcontrollers just check the [schematics](kicad/) and make whatever you wish - build your own firmware, do another PCB, connect external sensors, don't use it at all because you can make it better :smile:. The device is quite simple for embedded electronics enthusiasts anyway...
 
 ## What about ordering a device?
 I made this device for me and then decided to share it. I think a lot of people might be interested to have such air quality sensor. I did not have intension to make money from it, that's why it's "open hardware" and I publish all of the information, so everyone can build it. 
@@ -96,7 +96,7 @@ It's designed on [KiCad](https://kicad-pcb.org/) and in the [kicad folder](kicad
 
 For any device the box is important. However my idea was to expose the PCB and electronics as much as possible in order to simplify it. I like the "raw" view of electronics and in this form I find it beautiful. 
 
-Taking into account this, I designed a simple holder case for "sliding" the PCB in it and holding the particle sensor. The case can stay at about 45 degrees angle. It is designed on Fusion 360 and the [details are here](case_model). The holder case is not perfect, I was thinking to redesign it but no time for this. I am sure someone can do it better. :) Or design a complete box to cover the electronics fully, for me it is better in this minimalistic style. 
+Taking into account this, I designed a simple holder case for "sliding" the PCB in it and holding the particle sensor. The case can stay at about 45 degrees angle. It is designed on Fusion 360 and the [details are here](case_model). The holder case is not perfect, I was thinking to redesign it but no time for this. I am sure someone can do it better. :smile: Or design a complete box to cover the electronics fully, for me it is better in this minimalistic style. 
 ## 3. Microcontroller Board
 ![](images/esp32.jpg)
 
@@ -118,7 +118,7 @@ This sensor is the popular [Bosch BME280](https://www.bosch-sensortec.com/produc
 ## 7. Ambient Light Sensor
 ![](images/tsl2561.jpg)
 
-The light sensor is [TSL 2561](https://ams.com/tsl2561) and it's the only sensor you need to solder directly on the board without a breakout board. I added this sensor not because I need to measure the ambient light but because I am a brightness freak, and I need the LEDs brightness to depend on the ambient light. Also wanted during the night when the lights are off the device to turn off the LEDs and displays automatically. You can also change the behavior of this brightness control and I spend some extra time developing the config only for the brightness features. :)
+The light sensor is [TSL 2561](https://ams.com/tsl2561) and it's the only sensor you need to solder directly on the board without a breakout board. I added this sensor not because I need to measure the ambient light but because I am a brightness freak, and I need the LEDs brightness to depend on the ambient light. Also wanted during the night when the lights are off the device to turn off the LEDs and displays automatically. You can also change the behavior of this brightness control and I spend some extra time developing the config only for the brightness features. :smile:
 ## 8. LEDs
 
 ![](images/leds.jpg)
@@ -139,7 +139,7 @@ The main display is the popular SSD1306 128x64 OLED display. On the top of the M
 ## 10. Volatile Organic Compound sensor
 ![](images/sgp30.jpg)
 
-This is the [Sensirion SGP30](https://www.sensirion.com/en/environmental-sensors/gas-sensors/sgp30/) senor mounted on a breakout board from China. I do not use it on all my devices, but I added it because I can. :) Also with it the device measures almost completely the internal air quality. SGP30 is also showing equivalent CO2 based on VOC but it's not precise compared with MH-Z19B NDIR sensor. Also it needs periodic calibration hardcoded in the firmware which makes it more tricky to use.
+This is the [Sensirion SGP30](https://www.sensirion.com/en/environmental-sensors/gas-sensors/sgp30/) senor mounted on a breakout board from China. I do not use it on all my devices, but I added it because I can. :smile: Also with it the device measures almost completely the internal air quality. SGP30 is also showing equivalent CO2 based on VOC but it's not precise compared with MH-Z19B NDIR sensor. Also it needs periodic calibration hardcoded in the firmware which makes it more tricky to use.
 ## 11. Other electrical components
 ![](images/buttons.png)
 
@@ -149,7 +149,7 @@ There are also four [surface mounted](https://en.wikipedia.org/wiki/Surface-moun
 
 
 ## Can you skip components?
-Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :) You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on the PCB for the I2C bus since it uses the resistors of the external breakout boards.
+Yes. The minimum you need is the [microcontroller board](#3.-microcontroller-board). However since you don't have any sensors, you won't get any data. :smile: You can add only the sensors needed. Also if you skip ambient light sensor there will be no auto brightness control and the LEDs will operate always at 25% intensity. Installing only the ambient light sensor without any of the displays or any of the other [I2C](https://en.wikipedia.org/wiki/I%C2%B2C) sensors (BME280, SGP30) will not work as there are no [pullup resistors](https://en.wikipedia.org/wiki/Pull-up_resistor) on the PCB for the I2C bus since it uses the resistors of the external breakout boards.
 
 
 # Bill of Materials (BOM)
