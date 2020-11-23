@@ -79,7 +79,7 @@ If you have experience with electronics and microcontrollers just check the [sch
 ## What about ordering a device?
 I made this device for me and then decided to share it. I think a lot of people might be interested to have such air quality sensor. I did not have intension to make money from it, that's why it's "open hardware" and I publish all of the information, so everyone can build it. 
 
-However I know that someone might be interested in the device, but lack the skills to build it. I do not stock the parts, but I have some PCBs and if there is interest I can provide some items or partially and completely assembled devices. [Drop me an email](mailto:nkitanov@gmail.com) if you are interested in buying the PCB, partially assembled, or a complete device. Then I can gather some data if there are more people looking for this option...
+However I know that someone might be interested in the device, but lack the skills to build it. [Please follow this link for more details.](ordering.md)
 
 # Components Details
 The device with AAA battery size comparison:
