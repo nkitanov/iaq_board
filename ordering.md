@@ -14,7 +14,8 @@ Item | Price (EUR) | Notes
 ***These prices exclude shipping. If you are interested in ordering, please send me an email to nkitanov@gmail.com with your address and I will let you know when the device can be ready as I might not have available parts and needs to order first.***
 
 ### Fully assembled device with holder
-You can see the device also [in the video](https://www.youtube.com/watch?v=X75OGs2TTT8).
+You can see the device also [in the video](https://www.youtube.com/watch?v=X75OGs2TTT8), also in [this video](https://www.youtube.com/watch?v=b2oDBgN3h1w) is shown how to complete the device with assembled PCB.
+
 ![](images/iaq_device.jpg)
 
 ### Fully assembled excluding 3D printed holder

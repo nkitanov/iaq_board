@@ -174,6 +174,8 @@ D1-D3 | [Neopixel 5050 LED](https://www.aliexpress.com/item/4000750610574.html?s
 | | [PCB Receptacle 4 pin](https://uk.farnell.com/samtec/bcs-104-l-s-te/receptacle-2-54mm-vert-4way/dp/1667470?ost=bcs-104-l-s-te) | 4 | four is needed if all sensors are installed
 | | [OLED 63x48 shield](https://www.aliexpress.com/item/32981156326.html?spm=a2g0s.9042311.0.0.27424c4dO21RuC) | 1 | not required, only if you want an extra display on top of the MCU board
 | | Holder case | 1 | it's not required to have it but it makes the device completed
+| | [Various 2.54 headers](https://www.ebay.co.uk/itm/10pcs-40-pin-2-54mm-Breakaway-Male-Header-for-PCB-Breadboard-1x40-Single-Row-UK/262755464818?epid=20008873513&hash=item3d2d723672:g:st8AAOSwMsZdNw5x) | | You will need these for the CO2 sensor if you don't have available. Normally they come together with the breakout boards.
+| | [2mm nylon bolts/nuts](https://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2047675.m570.l1313&_nkw=2mm+nylon+bolts&_sacat=0) | | If you want to make the display more stable you can install nylon bolts like explained [in the video](https://youtu.be/b2oDBgN3h1w?t=758).
 
 # Firmware
 Firmware is created with [ESPHome](https://esphome.io/index.html). The binary file, configuration and instructions are located in [firmware folder](firmware/).
@@ -185,9 +187,13 @@ Find all KiCad project in [kicad folder](kicad/) with schematic, PCB design file
 # Soldering tips
 You need basic soldering skills and a soldering iron with thin tip. Because most of the components are SMD, it's much easier to buy some [solder paste](https://en.wikipedia.org/wiki/Solder_paste) if you don't have. Most of the SMD components are quite large to solder easily with the iron, you [can look in youtube](https://www.google.com/search?q=solder+smd+components&source=lnms&tbm=vid&sa=X&ved=2ahUKEwien7K4zfbsAhX6BWMBHQMtDZAQ_AUoAnoECBMQBA&cshid=1604964375672299&biw=1600&bih=1097), there are thousand of videos how to solder SMD components. Of course for some parts it's easier to use hotair rework station but not a requirement.
 
+![](images/kicad_3d.png)
+
 The only more difficult component to solder is the ambient light sensor which is quite small. I normally do these with a thin layer of solder paste and heatgun from bellow. However because of the footpint on the PCB is purposely made a bit bigger, I managed to solder it as well with a regular iron with a thin tip and solder paste. Also magnifying glasses will help.
 
-![](images/kicad_3d.png)
+If you use the small display over the MCU board, make sure i2c address is configured as 0x3D, which means to solder bottom two pads of the solder jumper like here:
+
+![](images/small_display_i2c.png)
 
 # User manual
 It's quite simple, the device have only one "multi functional" button SW1, and one micro button SW2 for calibration of the CO2 sensor.
