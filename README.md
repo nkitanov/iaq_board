@@ -70,7 +70,7 @@ Here is a video with all you need to know:
 The device is just a simple PCB board and almost everyone with some soldering skills can assemble it in a few steps:
 1. [Download the PCB files](kicad/) and print the PCB somewhere like https://jlcpcb.com/
 2. Buy some components (listed in the bill of materials section) from Aliexpress or any other source.
-3. Solder everything on the board. With the exception of the ambient light sensor, all the rest is pretty easy with general soldering skills. Soldering light sensor can be done with regular soldering iron, but because of the small size of the IC, it's easier if you have heat gun or SMD reflow oven/plate.
+3. Solder everything on the board. With the exception of the ambient light sensor, all the rest is pretty easy with general soldering skills. Soldering light sensor can be done with regular soldering iron, but because of the small size of the IC, it's easier if you have heat gun or SMD reflow oven/plate. [Here is video how to complete device from assembled PCB.](https://www.youtube.com/watch?v=b2oDBgN3h1w)
 4. Flash the microcontroller with the esphome firmware [following the manual](firmware/). You can write your own firmware if you have the skills. :smile: 
 5. Print the holder case on 3D printer if you wish. I have some sensors without it and they are perfectly fine, so it's up to you.
 
