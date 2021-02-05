@@ -132,7 +132,7 @@ PM2.5 value (um/m3)<br>LED 1 | [AQI by EEA (Air Quality Index for PM2.5 24h aver
 11 - 20 | 10 - 20 (Fair) | 700 - 1000 | ![](https://img.shields.io/static/v1?label=&message=CYAN&color=cyan) | off | on | on 
 20 - 30 | 20 - 25 (Moderate) | 1000 - 1500 | ![](https://img.shields.io/static/v1?label=&message=YELLOW&color=yellow) | on | on | off 
 30 - 40 | 25 - 50 (Poor) | 1500 - 2100 | ![](https://img.shields.io/static/v1?label=&message=MAGENTA&color=magenta) | on | off | on 
-\> 50 | > 50 (Very Poor) | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | on 
+\> 50 | > 50 (Very Poor) | > 2100 | ![](https://img.shields.io/static/v1?label=&message=RED&color=red) | on | off | off 
 
 ## 9. Displays
 The main display is the popular SSD1306 128x64 OLED display. On the top of the MCU board you can install extra [OLED 63x48](https://docs.wemos.cc/en/latest/d1_mini_shiled/oled_0_66.html) shield from Lolin which shows temperature, humidity and air pressure only.
