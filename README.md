@@ -3,7 +3,7 @@
 # IAQ (Indoor Air Quality) Board 
 IAQ Board is a DIY (Do-It-Yourself) device for measuring internal air quality. I needed a device for measuring some air quality parameters which is **compact, cheap, simple and capable**. After I prototyped it, decided instead of mounting into some odd box with cables hanging inside between the sensors, why not just solder everything on a printed circuit board. I had some experience with this from the time when I was a student years ago and luckily now it's much easier to crate PCB and very cheap to get it printed. 
 
-**And here is my device. I am publishing all the details and documentation under 'open source hardware' license, so everyone can build it and adapt it without any restrictions.**
+**And here is my device. I am publishing all the details and documentation under '[open source hardware](https://en.wikipedia.org/wiki/Open-source_hardware)' CC-BY-CA license, so everyone can build, adapt and sell it, as long as share under the same license**
 
 **Table of Contents**
    * [IAQ (Indoor Air Quality) Board](#iaq-indoor-air-quality-board)
