@@ -6,14 +6,18 @@ Item | Price (EUR) | Notes
 :-----------------: | :-------------: | :------------- |
 [PCB only](#PCB-only) | 5 | You have to order and solder all components yourself.
 [Fully assembled PCB without sensors, but including the ambient light senor](#Assembled-PCB) | 35 | with high quality Samtec receptacles and Omron switches. You have to order all the other components yourself and solder the MH-Z19 sensor on the PCB.
-[Fully assembled PCB with everything except SGP30 VOC sensor](#Fully-assembled-excluding-3D-printed-holder) | 92 | I rarely use this sensor, that's why adding this option.
-[Fully assembled PCB with everything excluding case holder](#Fully-assembled-excluding-3D-printed-holder) | 100 | This option is without the case holder
-[Fully assembled PCB incl. everything + holder](#Fully-assembled-device-with-holder) | 105 | this is the complete device
-[Case holder, PETG material](#Case-holder)  | 7 | color can be red, blue, orange or black
+[Fully assembled PCB with everything except SGP30 VOC sensor](#Fully-assembled-excluding-3D-printed-holder) | 92 | I rarely use this sensor, that's why adding this option. No case.
+[Fully assembled PCB excluding SGP30 VOC sensor + holder](#Fully-assembled-excluding-3D-printed-holder) | 99 | Complete device plus case excluding SGP30 VOC sensor.
+[~~Fully assembled PCB incl. everything + holder~~](#Fully-assembled-device-with-holder) | ~~105~~ | ~~this is the complete device~~ **\*** 
+[Case holder, PETG material](#Case-holder)  | 7 | color orange only at the moment (like on the photo)
 
-***These prices exclude shipping. If you are interested in ordering, please send me an email to nkitanov@gmail.com with your address and I will let you know when the device can be ready as I might not have available parts and needs to order first.***
+\* I do not provide completely assembled board with SGP30 TVOC sensor anymore because of the poor quality of these boards ([explained here](https://github.com/nkitanov/iaq_board/issues/10#issuecomment-798994427)), you can buy yourself this board if TVOC is needed.
 
-### Fully assembled device with holder
+***These prices exclude shipping. If you are interested in ordering, please send me an email to nkitanov@gmail.com with your address and I will let you know when the device can be ready as I might not have all parts.***
+
+*Shipping is 7 EUR for one device with registered post, there are other faster options upon request. Payment is with bank transfer (preferably), [Paysera](https://www.paysera.com/) (EU paypal similar service, also preferably) or Paypal. With Paypal if you are non EU account, I will add 2% as they charge me extra [Cross border fee](https://www.paypal.com/mt/webapps/mpp/ua/useragreement-full#tableOfFees1).*
+
+### Fully assembled device with holder (excluding SGP30 VOC sensor only)
 You can see the device also [in the video](https://www.youtube.com/watch?v=X75OGs2TTT8), also in [this video](https://www.youtube.com/watch?v=b2oDBgN3h1w) is shown how to complete the device with assembled PCB.
 
 ![](images/iaq_device.jpg)

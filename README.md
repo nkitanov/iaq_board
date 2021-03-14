@@ -142,6 +142,8 @@ The main display is the popular SSD1306 128x64 OLED display. On the top of the M
 ![](images/sgp30.jpg)
 
 This is the [Sensirion SGP30](https://www.sensirion.com/en/environmental-sensors/gas-sensors/sgp30/) senor mounted on a breakout board from China. I do not use it on all my devices, but I added it because I can. :smile: Also with it the device measures almost completely the internal air quality. SGP30 is also showing equivalent CO2 based on VOC but it's not precise compared with MH-Z19B NDIR sensor. Also it needs periodic calibration hardcoded in the firmware which makes it more tricky to use.
+
+Please [check here](https://github.com/nkitanov/iaq_board/issues/10#issuecomment-798994427) for the known issues with these boards.
 ## 11. Other electrical components
 ![](images/buttons.png)
 
@@ -278,6 +280,7 @@ As I mentioned above the initial design was based on ESP8266 microcontroller. Be
 
 # Known issues
 These are valid for ESP32 MCU:
+- Poor quality of the SGP30 VOC sensor breakout boards from China. The issues and fixes [explained here](https://github.com/nkitanov/iaq_board/issues/10#issuecomment-798994427).
 - When you open [the web interface](https://esphome.io/components/web_server.html) of the device - it resets sometimes.
 - I had a batch of Neopixel 5050 LEDs which are a bit brighter than the one linked in the BOM section and sometimes they switch to white color and 100% intensity. This is fixed in max 3 sec when correct color and brightness is set back again. These LEDs are set sequentially by their protocol so apparently it interprets wrongly set command or something. This is not happening with the LEDs linked in BOM but keep it in mind that it can happen with some LEDs (especially if they are from a bright batch).
 - In the configuration I run the temperature with -1 degreeC offset. I found out these sensors shows a bit higher, and also there is some minimal temperature rise from conducted heat from the PCB. Always connect the BME280 sensor high above the PCB as in my design with the 4 pin receptacle. If you solder it lower on the PCB it might run hotter. For even more precise temperature measurement you can calibrate in esphome the value very precisely if you have access to calibrated thermometer. I was thinking also to experiment with thermocouple on the hole of the dust sensor fan so it can not pick up extra heat. This is in case if you need to use this temperature as input for a thermostat, as I do. 
