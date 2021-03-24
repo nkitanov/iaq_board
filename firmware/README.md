@@ -16,3 +16,8 @@ I am not going to explain in details [the configuration yaml file.](iaq_board.ya
 ***That's it! Connect the MCU on the board, then power it on and it should work.***
 
 If you want to go deeper, [follow the instructions](https://esphome.io/guides/getting_started_command_line.html) how to build the binary file from the yaml and upload it to the MCU from command line.
+
+# Changelog
+###  yaml 1.1.3 / 21 Mar 2021
+- update esphome to 1.16.2
+- initial brightness correction set to +15%
