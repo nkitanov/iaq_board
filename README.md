@@ -85,6 +85,7 @@ However I know that someone might be interested in the device, but lack the skil
 The device with AAA battery size comparison:
 
 ![](images/iaq_device.jpg)
+![](images/iaq_device1.jpg)
 ## 1. PCB
 ![](images/pcb.png)
 ![](images/pcb.jpg)
@@ -177,9 +178,10 @@ D1-D3 | [Neopixel 5050 LED](https://www.aliexpress.com/item/4000750610574.html?s
 | | [SMD PCB Receptacle 8 pins](https://uk.farnell.com/samtec/ssm-108-l-sv/receptacle-2-54mm-vert-8way/dp/1668259?st=ssm-108-l-sv%20pcb%20receptacle) | 3 | two are needed for the MCU board, 3rd you can skip. It's for extra pins on the PCB but with ESP32 MCU not needed so much as extra headers can be soldered directly on it's board
 | | [PCB Receptacle 4 pin](https://uk.farnell.com/samtec/bcs-104-l-s-te/receptacle-2-54mm-vert-4way/dp/1667470?ost=bcs-104-l-s-te) | 4 | four is needed if all sensors are installed
 | | [OLED 63x48 shield](https://www.aliexpress.com/item/32981156326.html?spm=a2g0s.9042311.0.0.27424c4dO21RuC) | 1 | not required, only if you want an extra display on top of the MCU board
-| | Holder case | 1 | it's not required to have it but it makes the device completed
+| | [Holder case](case_model) | 1 | it's not required to have it but it makes the device completed
+| | [Display holder](case_model) | 1 | This small 3D printed part is holding tight the display from flapping 
 | | [Various 2.54 headers](https://www.ebay.co.uk/itm/10pcs-40-pin-2-54mm-Breakaway-Male-Header-for-PCB-Breadboard-1x40-Single-Row-UK/262755464818?epid=20008873513&hash=item3d2d723672:g:st8AAOSwMsZdNw5x) | | You will need these for the CO2 sensor if you don't have available. Normally they come together with the breakout boards.
-| | [2mm nylon bolts/nuts](https://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2047675.m570.l1313&_nkw=2mm+nylon+bolts&_sacat=0) | | If you want to make the display more stable you can install nylon bolts like explained [in the video](https://youtu.be/b2oDBgN3h1w?t=758).
+| | [2mm nylon bolts/nuts](https://www.ebay.co.uk/sch/i.html?_from=R40&_trksid=p2047675.m570.l1313&_nkw=2mm+nylon+bolts&_sacat=0) | | If you want to make the display more stable you can install nylon bolts like explained [in the video](https://youtu.be/b2oDBgN3h1w?t=758). Better use [display holder](case_model).
 
 # Firmware
 Firmware is created with [ESPHome](https://esphome.io/index.html). The binary file, configuration and instructions are located in [firmware folder](firmware/).

@@ -20,4 +20,4 @@ If you want to go deeper, [follow the instructions](https://esphome.io/guides/ge
 # Changelog
 ###  yaml 1.1.3 / 21 Mar 2021
 - update esphome to 1.16.2
-- initial brightness correction set to +15%
+- default brightness correction set to +15%

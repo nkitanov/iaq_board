@@ -21,6 +21,7 @@ Item | Price (EUR) | Notes
 You can see the device also [in the video](https://www.youtube.com/watch?v=X75OGs2TTT8), also in [this video](https://www.youtube.com/watch?v=b2oDBgN3h1w) is shown how to complete the device with assembled PCB.
 
 ![](images/iaq_device.jpg)
+![](images/iaq_device1.jpg)
 
 ### Fully assembled excluding 3D printed holder
 ![](images/order_assembled1.jpg)
