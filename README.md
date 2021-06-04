@@ -118,6 +118,8 @@ Carbon dioxide sensor is the Chinese [Winsen MH-Z19B](https://www.winsen-sensor.
 ![](images/bme280.jpg)
 
 This sensor is the popular [Bosch BME280](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/), mounted on 3.3V only breakout board from China. There are also smaller [breakout boards](http://www.cncroutersource.com/breakout-boards.html) from China working both on 5V and 3.3V, but these have voltage regulator which can theoretically warm the board and change the temperature reading. That's why I use the boards with 3.3V only.
+
+**Please note that due to semiconductor shortage these are difficult to find now (June 2021). I am currently using my own breakout where I solder the BME directly. BME280 as IC can be found occasionally in stock from DigiKey**
 ## 7. Ambient Light Sensor
 ![](images/tsl2561.jpg)
 
