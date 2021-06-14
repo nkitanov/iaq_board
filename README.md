@@ -261,7 +261,7 @@ After 1 minute of unsuccessful WiFi connection attempts, the microcontroller wil
 
 If you have Home Assistant you have to [install the ESPHome addon](https://esphome.io/guides/getting_started_hassio.html), and after that [add the device](https://esphome.io/components/api.html). All sensors, switches, LEDs will appear automatically as entities in Home Assistant. Then you can add them on the dashboard, here is one of my devices added on Home Assistant dashboard with all data from it.
 
-![](images/hass.png)
+![](images/hass.PNG)
 
 #### *What if some of the sensors/displays is disconnected while the device works?*
 
