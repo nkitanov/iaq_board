@@ -295,7 +295,7 @@ These are valid for ESP8266 MCU (including the previous issues), not recommended
 - unstable [AP fallback mode](https://esphome.io/components/wifi.html#access-point-mode), causing WDT resets, so sometimes not easy to connect to WiFi without hardcoding the credentials in the firmware
 
 # License 
-The device is [Open-source hardware](https://en.wikipedia.org/wiki/Open-source_hardware) 
+The device is [Open-source hardware](https://en.wikipedia.org/wiki/Open-source_hardware), [licensed by Open Source Hardware Association](https://certification.oshwa.org/bg000078.html). 
 
 - Hardware is licensed under [CERN-OHL-W v2](https://ohwr.org/cern_ohl_w_v2.txt).
 - Software is licensed under [Apache License 2](https://www.apache.org/licenses/LICENSE-2.0)
