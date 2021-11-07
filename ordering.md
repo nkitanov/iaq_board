@@ -2,13 +2,14 @@
 
 I got some emails from people interested in buying the device, and here are the details in the bellow table. Please note that I do not make this device for mass production and the bellow prices are considered fair for the efforts I need to invest in organizing ordering and building the devices. If you build it yourself it will cost about half these prices with most of the parts from China stores like Aliexpress. 
 
-***Note 1 Sep 2021:** I stop producing fully assembled devices with dust and CO2 sensors. I need focus on another things to do and I am very limited with time to keep the stock of parts. Also the prices of components is constantly increasing and some of them difficult to find. I will continue with making the fully assembled PCBs with all the  parts until I have components in stock and eventually until there is interest.* 
+***Note 1 Oct 2021:** I stop producing fully assembled devices. I need focus on another things to do and I am very limited with time to keep the stock of parts. Also the prices of components is constantly increasing and some of them difficult to find. I will continue with making the fully assembled PCBs with all the  parts until I have components in stock and eventually until there is interest. Also I have some available BME280 breakout boards which I assemble myself.* 
 
 Item | Price (EUR) | Notes 
 :-----------------: | :-------------: | :------------- |
 [PCB only](#PCB-only) | 5 | You have to order and solder all components yourself.
 [Fully assembled PCB without sensors, but including the ambient light senor](#Assembled-PCB) | 35 | with high quality Samtec receptacles and Omron switches. You have to order all the other components yourself and solder the MH-Z19 sensor on the PCB.
-[Fully assembled PCB with everything except SGP30, MH-Z19B and PMS7003 sensors, incl. displays and ESP board](#Fully-assembled-excluding-3D-printed-holder) | 70 | You need to order and plug the dust sensor and MH-Z19B sensor yourself
+BME 280 breakout board | 8 | These boards are 4 pin, only I2C and only 3.3V compatible with the board, i2c address can be changed. I assemble them myself as BME280 is difficult to get from Aliexpress.
+[~~~Fully assembled PCB with everything except SGP30, MH-Z19B and PMS7003 sensors, incl. displays and ESP board~~~](#Fully-assembled-excluding-3D-printed-holder) | ~~~70~~~ | ~~~You need to order and plug the dust sensor and MH-Z19B sensor yourself~~~
 [~~Fully assembled PCB with everything except SGP30 VOC sensor~~](#Fully-assembled-excluding-3D-printed-holder) | ~~92~~ | ~~I rarely use this sensor, that's why adding this option. No case.~~
 [~~Fully assembled PCB excluding SGP30 VOC sensor + holder~~](#Fully-assembled-excluding-3D-printed-holder) | ~~99~~ | ~~Complete device plus case excluding SGP30 VOC sensor.~~
 [~~Fully assembled PCB incl. everything + holder~~](#Fully-assembled-device-with-holder) | ~~105~~ | ~~this is the complete device~~ **\*** 
