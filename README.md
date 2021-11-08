@@ -91,7 +91,7 @@ The device with AAA battery size comparison:
 ![](images/pcb.jpg)
 
 The PCB (printed circuit board) is very simple and compact. It's 70x43mm (photos above are showing it larger than the actual size). It just connects a few sensors, microcontroller and displays. I wanted to integrate it in as much smaller footprint as possible, so the whole device is like a cigarette box. Most of the parts are surface mounted which makes the soldering just a bit more complicated, but still not a big deal. And of course it could be integrated even more by soldering all individual components on the PCB but then it's not really a hobby project anymore and much more difficult to build it.
-It's designed on [KiCad](https://kicad-pcb.org/) and in the [kicad folder](kicad/) you can find full KiCad project, PCB gerber files, etc.
+It's designed on [KiCad](https://kicad.org/) and in the [kicad folder](kicad/) you can find full KiCad project, PCB gerber files, etc.
 ## 2. Holder case
 ![](images/stand.gif)
 
