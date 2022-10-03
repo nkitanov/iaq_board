@@ -588,6 +588,7 @@ light:
     num_leds: 3
     pin: GPIO16
     name: "RGB strip"
+    variant: SK6812
     id: rgb_led
     default_transition_length: 0s
 
