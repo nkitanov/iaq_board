@@ -107,7 +107,7 @@ These small size MCU board are pretty nice, they are tiny, have USB connector, o
 ## 4. Dust Sensor
 ![](images/pms7003.jpg)
 
-Dust sensor is the Chinese [Plantower PMS7003](http://www.plantower.com/en/content/?110.html) - 1, 2.5 and 10 micron particle laser sensor. It's very small and is perfect for indoor environment. 
+Dust sensor is the Chinese [Plantower PMS7003]([http://www.plantower.com/en/content/?110.html](https://www.plantower.com/en/products_33/76.html)) - 1, 2.5 and 10 micron particle laser sensor. It's very small and is perfect for indoor environment. 
 ## 5. CO2 sensor
 ![](images/mh-z19b.png)
 
