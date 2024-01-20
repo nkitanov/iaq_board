@@ -1,14 +1,44 @@
-# This YAML configuratrion in compatible with ESPHome 1.16.0
+esp32:
+  board: wemos_d1_mini32
+  framework:
+    type: arduino
+
+# Enable Home Assistant API
+api:
+  #encryption:
+  #  key: ""  # Add Key here if using Home Assistant
+  reboot_timeout: 0s
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "IAQ Fallback Hotspot"
+    password: "IfnXyerd2ufA"
+
+captive_portal:
+logger:
+  baud_rate: 0
+
+web_server:
+  port: 80
+
+substitutions:
+  yaml_version: "1.1.3"
 
 esphome:
-  name: iaq_board
-  platform: ESP32
-  board: wemos_d1_mini32
+  name: iaq-board
+  friendly_name: IAQ Board
   # The library dep is added because of a bug in the neopixel library 
   # ver. 2.5.7. Can be removed when library is updated in future ver.
   # of esphome
   platformio_options:
     lib_deps: NeoPixelBus@2.6.0
+
   on_boot:
     then:
       - lambda: 'id(pm2_5).publish_state(1.0);'
@@ -49,30 +79,6 @@ script:
       - globals.set:
           id: temp_max
           value: '0.0'
-
-wifi:
-#  networks: !include wifi/wifi.yaml
-  ap:
-    ssid: "iaq_board"
-    password: "12345678"
-
-captive_portal:
-
-logger:
-  baud_rate: 0
-  
-web_server:
-  port: 80
-
-api:
-  reboot_timeout: 0s
-  #encryption:  #Uncomment and add key if using Home Assistant
-  #  key: ""
-
-ota:
-
-substitutions:
-  yaml_version: "1.1.3"
 
 globals:
   - id: button_mode
