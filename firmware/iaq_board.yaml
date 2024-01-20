@@ -66,6 +66,8 @@ web_server:
 
 api:
   reboot_timeout: 0s
+  #encryption:  #Uncomment and add key if using Home Assistant
+  #  key: ""
 
 ota:
 
@@ -424,7 +426,7 @@ sensor:
       
     - platform: uptime
       name: Uptime
-      id: utime
+      id: utime_sensor
       
     - platform: template
       name: "PM2.5 24h average"
