@@ -22,7 +22,7 @@ If you want to go deeper, [follow the instructions](https://esphome.io/guides/ge
 - update esphome to 1.16.2
 - default brightness correction set to +15%
   
-###  yaml 1.1.4(?) / 23 Jan 2024
+###  yaml 1.1.4(?) / 23 Jan 2024 (Badn1nja)
 - Fixed complication bugs (utime_sensor)
 - updated/working with esphome: 2023.12.9
 - Added Virtual buttons for automation and 'remote control' (Adds controls away from physical buttons)
