@@ -1,0 +1,15 @@
+# Home Assistant automation to take advantage of the virtual button
+alias: Change Screens IAQ
+description: Rotate screen on interval
+trigger:
+  - platform: time_pattern
+    minutes: /5 # Every 5m, to reduce burn in and add some pzazz 
+condition: []
+action:
+  - service: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - button.iaq_board_next_screen
+mode: single

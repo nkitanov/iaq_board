@@ -82,10 +82,10 @@ script:
           value: '0.0'
 button:
   - platform: template
-    name: "Led Trigger"
-    id: iaq_led_status
+    name: "Next Screen"
+    id: iaq_screen_refresh
     # Optional variables:
-    icon: "mdi:emoticon-outline"
+    icon: "mdi:screen-rotatio"
     on_press:
       then:
         - lambda: |-
@@ -96,7 +96,7 @@ button:
     name: "Led Trigger"
     id: iaq_led_status
     # Optional variables:
-    icon: "mdi:emoticon-outline"
+    icon: "mdi:led-outline"
     on_press:
       then:
         - lambda: |-
@@ -107,7 +107,7 @@ button:
     name: "Nightmode"
     id: iaq_nightmode
     # Optional variables:
-    icon: "mdi:emoticon-outline"
+    icon: "mdi:lightbulb-night"
     on_press:
       then:
         - lambda: |-
@@ -118,7 +118,7 @@ button:
     name: "+/- Script"
     id: iaq_min_max_zero_script
     # Optional variables:
-    icon: "mdi:emoticon-outline"
+    icon: "mdi:refresh"
     on_press:
       then:
         - globals.set:

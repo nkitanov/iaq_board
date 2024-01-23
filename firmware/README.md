@@ -21,3 +21,13 @@ If you want to go deeper, [follow the instructions](https://esphome.io/guides/ge
 ###  yaml 1.1.3 / 21 Mar 2021
 - update esphome to 1.16.2
 - default brightness correction set to +15%
+  
+###  yaml 1.1.4(?) / 23 Jan 2024 (Badn1nja)
+- Fixed complication bugs (utime_sensor)
+- updated/working with esphome: 2023.12.9
+- Added Virtual buttons for automation and 'remote control' (Adds controls away from physical buttons)
+- Changed Physical Button ID to buttonpcb (allows buttons to be added to yaml, not used before this change)
+- Added Home Assistant Yaml for Automating the screen changes
+- Added latest bin file using template yaml (Reccomend to use esphome to build)
+- Added icons
+- Re-formatted YAML for better readability and more inline with default esphome config
