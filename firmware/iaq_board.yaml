@@ -5,9 +5,10 @@ esp32:
 
 # Enable Home Assistant API
 api:
-  #encryption:
-  #  key: ""  # Add Key here if using Home Assistant
   reboot_timeout: 0s
+#  encryption:
+#    key: ""
+# Required for Home Assistant Intergration
 
 ota:
 
@@ -38,7 +39,7 @@ esphome:
   # of esphome
   platformio_options:
     lib_deps: NeoPixelBus@2.6.0
-
+    
   on_boot:
     then:
       - lambda: 'id(pm2_5).publish_state(1.0);'
@@ -90,7 +91,7 @@ button:
         - lambda: |-
             if (id(led_status)) { id(led_status) = false; }
             else { id(led_status) = true; } 
-        - logger.log: Next Screen..
+  
   - platform: template
     name: "Nightmode"
     id: iaq_nightmode
@@ -101,7 +102,7 @@ button:
         - lambda: |-
             if (id(night_mode)) { id(night_mode) = false; }
             else { id(night_mode) = true; }
-        - logger.log: Next Screen..
+
   - platform: template
     name: "+/- Script"
     id: iaq_min_max_zero_script
@@ -118,6 +119,7 @@ button:
             id: min_max_zero
             value: 'false'
         - logger.log: MIN/MAX Script enacted
+        
 globals:
   - id: button_mode
     type: int
