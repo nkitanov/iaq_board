@@ -79,7 +79,45 @@ script:
       - globals.set:
           id: temp_max
           value: '0.0'
-
+button:
+  - platform: template
+    name: "Led Trigger"
+    id: iaq_led_status
+    # Optional variables:
+    icon: "mdi:emoticon-outline"
+    on_press:
+      then:
+        - lambda: |-
+            if (id(led_status)) { id(led_status) = false; }
+            else { id(led_status) = true; } 
+        - logger.log: Next Screen..
+  - platform: template
+    name: "Nightmode"
+    id: iaq_nightmode
+    # Optional variables:
+    icon: "mdi:emoticon-outline"
+    on_press:
+      then:
+        - lambda: |-
+            if (id(night_mode)) { id(night_mode) = false; }
+            else { id(night_mode) = true; }
+        - logger.log: Next Screen..
+  - platform: template
+    name: "+/- Script"
+    id: iaq_min_max_zero_script
+    # Optional variables:
+    icon: "mdi:emoticon-outline"
+    on_press:
+      then:
+        - globals.set:
+            id: min_max_zero
+            value: 'true'
+        - script.execute: min_max_zero_script
+        - delay: 3s
+        - globals.set:
+            id: min_max_zero
+            value: 'false'
+        - logger.log: MIN/MAX Script enacted
 globals:
   - id: button_mode
     type: int
