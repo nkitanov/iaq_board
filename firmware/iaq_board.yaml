@@ -194,7 +194,7 @@ i2c:
 
 binary_sensor:
   - platform: gpio
-    id: button
+    id: buttonpcb
     pin:
       number: GPIO23
       mode: INPUT_PULLUP
