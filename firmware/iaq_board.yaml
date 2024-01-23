@@ -89,6 +89,17 @@ button:
     on_press:
       then:
         - lambda: |-
+            if (id(button_mode) < 8) { id(button_mode) += 1; }
+            else { id(button_mode) = 1; }
+
+  - platform: template
+    name: "Led Trigger"
+    id: iaq_led_status
+    # Optional variables:
+    icon: "mdi:emoticon-outline"
+    on_press:
+      then:
+        - lambda: |-
             if (id(led_status)) { id(led_status) = false; }
             else { id(led_status) = true; } 
   
