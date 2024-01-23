@@ -1,44 +1,14 @@
-esp32:
-  board: wemos_d1_mini32
-  framework:
-    type: arduino
-
-# Enable Home Assistant API
-api:
-  #encryption:
-  #  key: ""  # Add Key here if using Home Assistant
-  reboot_timeout: 0s
-
-ota:
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "IAQ Fallback Hotspot"
-    password: "IfnXyerd2ufA"
-
-captive_portal:
-logger:
-  baud_rate: 0
-
-web_server:
-  port: 80
-
-substitutions:
-  yaml_version: "1.1.3"
+# This YAML configuratrion in compatible with ESPHome 1.16.0
 
 esphome:
-  name: iaq-board
-  friendly_name: IAQ Board
+  name: iaq_board
+  platform: ESP32
+  board: wemos_d1_mini32
   # The library dep is added because of a bug in the neopixel library 
   # ver. 2.5.7. Can be removed when library is updated in future ver.
   # of esphome
   platformio_options:
     lib_deps: NeoPixelBus@2.6.0
-
   on_boot:
     then:
       - lambda: 'id(pm2_5).publish_state(1.0);'
@@ -79,45 +49,29 @@ script:
       - globals.set:
           id: temp_max
           value: '0.0'
-button:
-  - platform: template
-    name: "Led Trigger"
-    id: iaq_led_status
-    # Optional variables:
-    icon: "mdi:emoticon-outline"
-    on_press:
-      then:
-        - lambda: |-
-            if (id(led_status)) { id(led_status) = false; }
-            else { id(led_status) = true; } 
-        - logger.log: Next Screen..
-  - platform: template
-    name: "Nightmode"
-    id: iaq_nightmode
-    # Optional variables:
-    icon: "mdi:emoticon-outline"
-    on_press:
-      then:
-        - lambda: |-
-            if (id(night_mode)) { id(night_mode) = false; }
-            else { id(night_mode) = true; }
-        - logger.log: Next Screen..
-  - platform: template
-    name: "+/- Script"
-    id: iaq_min_max_zero_script
-    # Optional variables:
-    icon: "mdi:emoticon-outline"
-    on_press:
-      then:
-        - globals.set:
-            id: min_max_zero
-            value: 'true'
-        - script.execute: min_max_zero_script
-        - delay: 3s
-        - globals.set:
-            id: min_max_zero
-            value: 'false'
-        - logger.log: MIN/MAX Script enacted
+
+wifi:
+#  networks: !include wifi/wifi.yaml
+  ap:
+    ssid: "iaq_board"
+    password: "12345678"
+
+captive_portal:
+
+logger:
+  baud_rate: 0
+  
+web_server:
+  port: 80
+
+api:
+  reboot_timeout: 0s
+
+ota:
+
+substitutions:
+  yaml_version: "1.1.3"
+
 globals:
   - id: button_mode
     type: int
@@ -470,7 +424,7 @@ sensor:
       
     - platform: uptime
       name: Uptime
-      id: utime_sensor
+      id: utime
       
     - platform: template
       name: "PM2.5 24h average"
