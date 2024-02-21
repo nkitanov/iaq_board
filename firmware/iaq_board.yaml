@@ -348,7 +348,7 @@ sensor:
         name: "PM 10 Concentration"
         id: pm10
 
-    - platform: bme280
+    - platform: bme280_i2c
       temperature:
         name: "Temperature"
         oversampling: 1x
