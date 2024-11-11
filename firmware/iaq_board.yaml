@@ -1,8 +1,45 @@
-esphome:
-  name: "iaq-device"
-  platform: ESP32
+esp32:
   board: wemos_d1_mini32
+  framework:
+    type: arduino
 
+# Enable Home Assistant API
+api:
+  reboot_timeout: 0s
+#  encryption:
+#    key: ""
+# Required for Home Assistant Intergration
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "IAQ Fallback Hotspot"
+    password: "IfnXyerd2ufA"
+
+captive_portal:
+logger:
+  baud_rate: 0
+
+web_server:
+  port: 80
+
+substitutions:
+  yaml_version: "1.1.3"
+
+esphome:
+  name: iaq-board
+  friendly_name: IAQ Board
+  # The library dep is added because of a bug in the neopixel library 
+  # ver. 2.5.7. Can be removed when library is updated in future ver.
+  # of esphome
+  platformio_options:
+    lib_deps: NeoPixelBus@2.6.0
+    
   on_boot:
     then:
       - lambda: 'id(pm2_5).publish_state(1.0);'
@@ -43,31 +80,57 @@ script:
       - globals.set:
           id: temp_max
           value: '0.0'
+button:
+  - platform: template
+    name: "Next Screen"
+    id: iaq_screen_refresh
+    # Optional variables:
+    icon: "mdi:screen-rotatio"
+    on_press:
+      then:
+        - lambda: |-
+            if (id(button_mode) < 8) { id(button_mode) += 1; }
+            else { id(button_mode) = 1; }
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  ap:
-    ssid: "iaq_board"
-    password: "12345678"
-
-captive_portal:
-
-logger:
-  baud_rate: 0
+  - platform: template
+    name: "Led Trigger"
+    id: iaq_led_status
+    # Optional variables:
+    icon: "mdi:led-outline"
+    on_press:
+      then:
+        - lambda: |-
+            if (id(led_status)) { id(led_status) = false; }
+            else { id(led_status) = true; } 
   
-web_server:
-  port: 80
+  - platform: template
+    name: "Nightmode"
+    id: iaq_nightmode
+    # Optional variables:
+    icon: "mdi:lightbulb-night"
+    on_press:
+      then:
+        - lambda: |-
+            if (id(night_mode)) { id(night_mode) = false; }
+            else { id(night_mode) = true; }
 
-api:
-  reboot_timeout: 0s
-
-ota:
-  platform: esphome
-
-substitutions:
-  yaml_version: "1.1.3"
-
+  - platform: template
+    name: "+/- Script"
+    id: iaq_min_max_zero_script
+    # Optional variables:
+    icon: "mdi:refresh"
+    on_press:
+      then:
+        - globals.set:
+            id: min_max_zero
+            value: 'true'
+        - script.execute: min_max_zero_script
+        - delay: 3s
+        - globals.set:
+            id: min_max_zero
+            value: 'false'
+        - logger.log: MIN/MAX Script enacted
+        
 globals:
   - id: button_mode
     type: int
@@ -140,11 +203,11 @@ uart:
 i2c:
   scl: GPIO22
   sda: GPIO21
-  frequency: 50kHz
+  frequency: 100kHz
 
 binary_sensor:
   - platform: gpio
-    id: button
+    id: buttonpcb
     pin:
       number: GPIO23
       mode: INPUT_PULLUP
@@ -285,7 +348,7 @@ sensor:
         name: "PM 10 Concentration"
         id: pm10
 
-    - platform: bme280_i2c
+    - platform: bme280
       temperature:
         name: "Temperature"
         oversampling: 1x
@@ -410,13 +473,17 @@ sensor:
         accuracy_decimals: 1
         id: tvoc
       update_interval: 1s
+      # https://esphome.io/components/sensor/sgp30.html#calibrating-baseline
       # baseline:
       #   eco2_baseline: 0x92B7
       #   tvoc_baseline: 0x935A
-      # compensation:
-      #   temperature_source: temp
-      #   humidity_source: hum
-  
+      compensation:
+         temperature_source: temp
+         humidity_source: hum
+      
+    - platform: uptime
+      name: Uptime
+      id: utime_sensor
       
     - platform: template
       name: "PM2.5 24h average"
@@ -578,9 +645,9 @@ light:
       to: 2
   - platform: neopixelbus
     num_leds: 3
-    variant: WS2811
     pin: GPIO16
     name: "RGB strip"
+    variant: SK6812
     id: rgb_led
     default_transition_length: 0s
 
